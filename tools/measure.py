@@ -16,6 +16,7 @@ from sdc_gdr2omop import OMOPMapper, mapping_path
 
 ROOT = Path(__file__).resolve().parents[1]
 MODELS = [("NHANES Participant", "nhanes-participant", "xy8upneajsb8vdcmnve01g6g"),
+          ("NHANES Participant 4.2.3", "nhanes-participant-423", "eehpfapwgvxtzdrofgstdcfs"),
           ("NHANES Medication", "nhanes-medication", "epbdfmvxc3gbh5f66hhb3o2m")]
 RECORD_CLUSTERS = {"Audit Event", "PROV Activity", "PROV Agent", "PROV Entity"}
 

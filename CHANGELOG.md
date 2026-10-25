@@ -1,5 +1,16 @@
 # Changelog
 
+## 4.0.3 (2026-10-25)
+
+- **NHANES Participant 4.2.3** (`eehpfapwgvxtzdrofgstdcfs`): its mapping, a seeded sample of 200 of its records, and
+  the tests run on it and on 4.2.0. The FAIR Data Demo's 4.2.3 model composes the NIH CDE library's corrected "Are you
+  pregnant now?" (E-2026-10-01: NIH's record bound each answer to the next value's LOINC code), so an answer's
+  value_as_concept_id is now the right one: Yes is LA15173-0 (Pregnant), No LA26683-5, Unknown LA4489-6. The 4.2.0
+  mapping stays, for records made on that model.
+- **Fix:** a person lost to an exceptional birth year turned a value carried as source text (a race OMOP has no code
+  for) into a lost Exceptional Value, and the record was refused as an incomplete mapping. CARRIED and EV_CARRIED are
+  the same word in sdc-mapper; the mapper now tells an Exceptional Value by its position.
+
 ## 4.0.2 (2026-10-25)
 
 Uses sdc-mapper 4.3.0's code reading (`sdc_mapper.codes`) for the IRIs a model names concepts with (LOINC, SNOMED CT,

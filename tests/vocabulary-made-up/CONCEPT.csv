@@ -13,3 +13,6 @@ concept_id	concept_name	domain_id	vocabulary_id	concept_class_id	standard_concep
 2000000012	MADE UP: Not Hispanic or Latino	Ethnicity	Ethnicity	Ethnicity	S	Not Hispanic	19700101	20991231	
 2000000013	MADE UP: Pure hypercholesterolemia (ICD-10-CM)	Condition	ICD10CM	4-char billing code		E78.0	19700101	20991231	
 2000000014	MADE UP: Pure hypercholesterolemia	Condition	SNOMED	Clinical Finding	S	13644009	19700101	20991231	
+2000000015	MADE UP: Pregnant	Observation	LOINC	Answer	S	LA15173-0	19700101	20991231	
+2000000016	MADE UP: Not pregnant	Observation	LOINC	Answer	S	LA26683-5	19700101	20991231	
+2000000017	MADE UP: Unknown	Meas Value	LOINC	Answer	S	LA4489-6	19700101	20991231	
