@@ -1,0 +1,42 @@
+# NHANES Medication (FAIR Data Demo) to OMOP CDM 5.4
+# Written by tools/build_mapping.py from tools/specs/nhanes_medication.py; labels in the comments.
+mapping:
+  id: nhanes-medication-omop-5.4
+  version: 1
+  author: Axius SDC, Inc.
+  date: '2026-10-25'
+  description: The NHANES Medication model's values as OMOP CDM 5.4 rows. The concepts are the model's own links and code
+    bindings, looked up in the user's vocabulary; the mapping says which table and column.
+model:
+  ct_id: epbdfmvxc3gbh5f66hhb3o2m
+  schema_sha256: 26728c92987a1a2db68c120baf72767f00dd034c8e9499b348769a3a7249155f
+target:
+  name: OMOP CDM
+  version: '5.4'
+rules:
+  # NHANES Medication Governed Record
+  - {cluster: jo2kw48cijwgg64s6cud2el1, to: .}
+  # NHANES Medication
+  - {cluster: ncudsi2t2ij3rd2pmnnfr2j9, to: .}
+  # Audit Event
+  - {cluster: t2tvd3wylxrstdeu5aw6gkw1, to: '-', transform: omit, reason: 'the record''s audit event: OMOP CDM has no table for it'}
+  # PROV Activity
+  - {cluster: vmikfu0irht9fmq7q02t3oqs, to: '-', transform: omit, reason: 'the record''s provenance: OMOP CDM has no table for it'}
+  # PROV Agent
+  - {cluster: c179ilk2ns15cd5rzzdfd6f6, to: '-', transform: omit, reason: 'the record''s provenance: OMOP CDM has no table for it'}
+  # Respondent Sequence Number (SEQN)
+  - {component: uto4zszvpicva38wx77knz5y, to: RECORD/person_id, transform: copy, also: [{to: RECORD/event_date, transform: constant, value: '2017-01-01'}]}
+  # every answer: an OBSERVATION row
+  - {sdc_type: XdToken, to: +OBSERVATION/value_as_concept_id, transform: copy}
+  # every count: an OBSERVATION row
+  - {sdc_type: XdCount, to: +OBSERVATION/value_as_number, transform: copy}
+  # Generic Drug Code (RXDDRGID)
+  - {component: wypildaam8rrd87zkkjxl732, to: DRUG_EXPOSURE/drug_source_value, transform: copy}
+  # Generic Drug Name (RXDDRUG)
+  - {component: lok5ozew80qmwah6h45jr69y, to: '-', transform: omit, reason: DRUG_EXPOSURE has no column for a drug's name; the drug is its source code}
+  # Diagnosis Code (ICD-10-CM)
+  - {component: efimv7gxg5ompt8m6xb2b6k5, to: +CONDITION_OCCURRENCE/condition_source_value, transform: copy}
+  # Code Display Text
+  - {component: eo5tlfr0576ypknys5alvcn0, to: '-', transform: omit, reason: 'OMOP keeps no display text: a concept''s name is the vocabulary''s'}
+  # Code System: ICD-10-CM
+  - {component: jwgx8nvbtsim7ck4uqmpqyl2, to: '-', transform: omit, reason: the code system is the vocabulary the condition's code is looked up in}
