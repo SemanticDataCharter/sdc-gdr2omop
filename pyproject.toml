@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sdc-gdr2omop"
+version = "4.0.0"
+description = "Governed Data Records as OMOP CDM 5.4 rows, through sdc-mapper: concepts from the model, every value reported, rows checked against the OHDSI DDL."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Axius SDC, Inc." }]
+keywords = ["sdc", "semantic data charter", "governed data record", "omop", "ohdsi", "cdm", "mapping"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "sdc-mapper>=4.2,<5",     # placements and the engine
+    "duckdb>=1.0",            # every call's rows are loaded into a CDM built from the OHDSI DDL
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pyyaml>=6.0", "lxml>=5.0"]
+
+[project.entry-points."sdc_mapper.targets"]
+omop = "sdc_gdr2omop:OMOPMapper"
+
+[project.urls]
+Repository = "https://github.com/SemanticDataCharter/sdc-gdr2omop"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+sdc_gdr2omop = ["mappings/*.yaml", "ddl/*.sql"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
