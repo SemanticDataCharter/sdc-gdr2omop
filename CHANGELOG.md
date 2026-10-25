@@ -1,6 +1,12 @@
 # Changelog
 
-## 4.0.0 (unreleased)
+## 4.0.1 (2026-10-25)
+
+Rebuilt with the release job's pip pinned by hash: CI and the release workflow install pip 26.2.2 from a hash-pinned
+wheel before anything else is fetched (the eMudhra/emSign CA compromise: pip before 26.2.2 trusts the compromised root
+through its vendored certifi). No change to the package.
+
+## 4.0.0 (2026-10-25)
 
 The health mapper of the sdc-mapper line: Governed Data Records as OMOP CDM 5.4 rows.
 
