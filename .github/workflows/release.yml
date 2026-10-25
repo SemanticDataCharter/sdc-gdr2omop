@@ -1,0 +1,23 @@
+name: release
+# Builds and publishes to PyPI on a v* tag through trusted publishing. The mapper has no MCP server of its own:
+# agents reach it through sdc-mapper's (the target `omop`).
+# (the project must be registered on PyPI with
+# this repository and workflow as a trusted publisher first; until then the tag is the dependency).
+on:
+  push:
+    tags: ["v*"]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: pip install build && python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+
