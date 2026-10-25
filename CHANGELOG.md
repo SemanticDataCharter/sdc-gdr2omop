@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.0.2 (2026-10-25)
+
+Uses sdc-mapper 4.3.0's code reading (`sdc_mapper.codes`) for the IRIs a model names concepts with (LOINC, SNOMED CT,
+NCI Thesaurus); the mapper keeps only what is OMOP's: each code system's OMOP vocabulary_id, and the code systems a
+component can name for the codes its value holds. No change to any output: every sample record maps to the same files
+and the same report, byte for byte. Requires sdc-mapper 4.3.
+
 ## 4.0.1 (2026-10-25)
 
 Rebuilt with the release job's pip pinned by hash: CI and the release workflow install pip 26.2.2 from a hash-pinned

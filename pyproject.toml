@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sdc-gdr2omop"
-version = "4.0.1"
+version = "4.0.2"
 description = "Governed Data Records as OMOP CDM 5.4 rows, through sdc-mapper: concepts from the model, every value reported, rows checked against the OHDSI DDL."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -16,7 +16,7 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 dependencies = [
-    "sdc-mapper>=4.2,<5",     # placements and the engine
+    "sdc-mapper>=4.3,<5",     # placements, the engine, and reading the codes the model names (4.3.0)
     "duckdb>=1.0",            # every call's rows are loaded into a CDM built from the OHDSI DDL
 ]
 

@@ -23,7 +23,7 @@ from sdc_mapper import (CARRIED, DECLARED, EV_CARRIED, LOOKUP, LOST, NOT_REPRESE
 from sdcreader.record import EXCEPTIONAL_VALUES
 
 from . import __version__
-from .iri import code_of, code_system_of, concept_of
+from .iri import code_system_of, concept_of, vocabulary_code
 from .vocabulary import Vocabulary
 from .writer import Row, columns, load, to_csv
 
@@ -179,7 +179,7 @@ class OMOPMapper:
         event = EVENTS.get(table)
         looked_up = carried = False
         if column == "value_as_concept_id":
-            code = code_of(v.code.defined_by) if v.code else None
+            code = vocabulary_code(v.code.defined_by) if v.code else None
             row.set(column, voc.standard(*code) if code else 0, position=v.position)
             self._value_text(row, p.text)
             looked_up = code is not None
