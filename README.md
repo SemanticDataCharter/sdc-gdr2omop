@@ -5,7 +5,7 @@ Governed Data Records as rows of the OMOP Common Data Model 5.4. A target mapper
 against its model and reports each one; this package says which OMOP table and column each value goes to, takes each
 row's concept from the model, and writes one CSV per table. Outbound only. Apache 2.0.
 
-**Status:** 4.0.0 in development. Models so far, from the [FAIR Data Demo](https://github.com/SemanticDataCharter/FAIR_Data_Demo):
+**Status:** 4.0.1. Models so far, from the [FAIR Data Demo](https://github.com/SemanticDataCharter/FAIR_Data_Demo):
 **NHANES Participant** (`xy8upneajsb8vdcmnve01g6g`) and **NHANES Medication** (`epbdfmvxc3gbh5f66hhb3o2m`).
 
 ## Use
