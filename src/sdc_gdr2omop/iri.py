@@ -4,17 +4,17 @@ A component links to the concept it measures or asks (skos:exactMatch to a LOINC
 concept); an enumerated value is defined by a code (rdfs:isDefinedBy to a LOINC answer, a SNOMED CT or NCI Thesaurus
 concept); a quantity's unit is a UCUM symbol. Each names a code in a vocabulary OMOP carries, so the concept_id is a
 lookup in the user's vocabulary, not a choice in the mapping file.
+
+Reading the IRIs is sdc-mapper's (`sdc_mapper.codes`, 4.3.0); what is OMOP's here is the name each code system has in
+the OMOP vocabularies, and the code systems a component can name for the codes its value holds.
 """
 from __future__ import annotations
 
-import re
+from sdc_mapper import CONCEPT_LINKS, LOINC, NCIT, SNOMED_CT, code_of
 
-#: (pattern, OMOP vocabulary_id). The code is the pattern's first group.
-PATTERNS = [
-    (re.compile(r"^https?://loinc\.org/(?:rdf/)?([0-9]+-[0-9]|LA[0-9]+-[0-9]|LP[0-9]+-[0-9])/?$"), "LOINC"),
-    (re.compile(r"^https?://snomed\.info/(?:id|sct)/([0-9]+)/?$"), "SNOMED"),
-    (re.compile(r"^https?://purl\.obolibrary\.org/obo/NCIT_(C[0-9]+)$"), "NCIt"),
-]
+#: The code systems the model names concepts in, by the IRI sdc-mapper names them with, as OMOP vocabulary_ids. A code
+#: in any other system (a code list's `#code`) is not one OMOP carries.
+VOCABULARIES = {LOINC: "LOINC", SNOMED_CT: "SNOMED", NCIT: "NCIt"}
 #: Code systems a component can name for the codes its value holds (the value is the code).
 CODE_SYSTEMS = {
     "http://hl7.org/fhir/sid/icd-10-cm": "ICD10CM",
@@ -24,26 +24,22 @@ CODE_SYSTEMS = {
     "http://www.nlm.nih.gov/research/umls/rxnorm": "RxNorm",
 }
 EXACT = "http://www.w3.org/2004/02/skos/core#exactMatch"
-SUBJECT = "http://purl.org/dc/terms/subject"
 SOURCE = "http://purl.org/dc/terms/source"
 
 
-def code_of(iri: str | None) -> tuple[str, str] | None:
-    """(vocabulary_id, concept_code) an IRI names, or None."""
-    if not iri:
+def vocabulary_code(iri: str | None) -> tuple[str, str] | None:
+    """(vocabulary_id, concept_code) an IRI names in a vocabulary OMOP carries, or None."""
+    ref = code_of(iri)
+    if ref is None or ref.system not in VOCABULARIES:
         return None
-    for pattern, vocabulary in PATTERNS:
-        m = pattern.match(iri.strip())
-        if m:
-            return vocabulary, m.group(1)
-    return None
+    return VOCABULARIES[ref.system], ref.code
 
 
 def concept_of(links: dict[str, list[str]]) -> tuple[str, str] | None:
     """The concept a component measures or asks: its exact match, else its subject."""
-    for predicate in (EXACT, SUBJECT):
+    for predicate in CONCEPT_LINKS:
         for iri in links.get(predicate, []):
-            found = code_of(iri)
+            found = vocabulary_code(iri)
             if found:
                 return found
     return None

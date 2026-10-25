@@ -9,7 +9,7 @@ user's own Athena download, given as a directory or by the environment variable 
 """
 from pathlib import Path
 
-__version__ = "4.0.1"
+__version__ = "4.0.2"
 
 MAPPINGS = Path(__file__).with_name("mappings")
 
