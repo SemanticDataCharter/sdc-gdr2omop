@@ -105,6 +105,7 @@ class OMOPMapper:
         placements, _ = place(record, mapping)
         self._record: dict[str, str] = {}
         self._rows: dict[tuple, Row] = {}
+        self._exceptional_at: set[int] = set()         # positions of the record's Exceptional Values
         outcomes: dict[int, ValueOutcome] = {}
         missing = []
 
@@ -120,6 +121,7 @@ class OMOPMapper:
                 continue
             table, key, column = self._target(p.steps)
             if v.exceptional:
+                self._exceptional_at.add(v.position)
                 outcomes[v.position] = self._exceptional(p, table, key, column)
                 continue
             carried_to = None
@@ -272,8 +274,9 @@ class OMOPMapper:
             if gone:
                 why = f"OMOP requires {row.table.upper()}.{gone[0]}, and the record has no value for it"
                 for pos in row.positions:
-                    lost = outcomes.get(pos) and outcomes[pos].cls == EV_CARRIED   # an Exceptional Value stays one
-                    outcomes[pos] = ValueOutcome(pos, LOST if lost else NOT_REPRESENTABLE, note=why)
+                    # an Exceptional Value stays one (by position: a carried value and a carried EV share the class name)
+                    outcomes[pos] = ValueOutcome(pos, LOST if pos in self._exceptional_at else NOT_REPRESENTABLE,
+                                                 note=why)
                 continue
             kept.append(row)
         return kept
