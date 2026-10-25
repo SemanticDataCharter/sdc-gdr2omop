@@ -1,6 +1,6 @@
 """Measure how the sample records reach OMOP CDM 5.4: the share of values that are lookups (the concept is the
 model's), declared (the mapping placed them), carried (text only) and not representable, and of Exceptional Values
-preserved, degraded, carried and lost. The PRD makes this measurement the test of whether OMOP stays in the line.
+preserved, degraded, carried and lost.
 
     python tools/measure.py            # Markdown tables, as in the README
 """
