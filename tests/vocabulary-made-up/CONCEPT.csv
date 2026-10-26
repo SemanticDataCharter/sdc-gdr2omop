@@ -16,3 +16,17 @@ concept_id	concept_name	domain_id	vocabulary_id	concept_class_id	standard_concep
 2000000015	MADE UP: Pregnant	Observation	LOINC	Answer	S	LA15173-0	19700101	20991231	
 2000000016	MADE UP: Not pregnant	Observation	LOINC	Answer	S	LA26683-5	19700101	20991231	
 2000000017	MADE UP: Unknown	Meas Value	LOINC	Answer	S	LA4489-6	19700101	20991231	
+2000000018	MADE UP: Unknown	Observation	NCIt	Qualifier Value	S	C17998	19700101	20991231	
+2000000019	MADE UP: Person Name	Observation	NCIt	Qualifier Value	S	C25191	19700101	20991231	
+2000000020	MADE UP: Pregnant	Observation	NCIt	Qualifier Value	S	C124295	19700101	20991231	
+2000000021	MADE UP: Not Pregnant	Observation	NCIt	Qualifier Value	S	C82475	19700101	20991231	
+2000000022	MADE UP: Can Do Without Any Difficulty	Observation	NCIt	Qualifier Value	S	C121736	19700101	20991231	
+2000000023	MADE UP: Can Do With Some Difficulty	Observation	NCIt	Qualifier Value	S	C121739	19700101	20991231	
+2000000024	MADE UP: Can Do With Much Difficulty	Observation	NCIt	Qualifier Value	S	C121740	19700101	20991231	
+2000000025	MADE UP: Unable to Do	Observation	NCIt	Qualifier Value	S	C121742	19700101	20991231	
+2000000026	MADE UP: Significant	Observation	NCIt	Qualifier Value	S	C41130	19700101	20991231	
+2000000027	MADE UP: Citizen	Observation	NCIt	Qualifier Value	S	C90516	19700101	20991231	
+2000000028	MADE UP: Education Level	Observation	NCIt	Qualifier Value	S	C17953	19700101	20991231	
+2000000029	MADE UP: Some High School, No Diploma	Observation	NCIt	Qualifier Value	S	C198650	19700101	20991231	
+2000000030	MADE UP: College Completion	Observation	NCIt	Qualifier Value	S	C159746	19700101	20991231	
+2000000031	MADE UP: Active Funded Research Project	Observation	NCIt	Qualifier Value	S	C39303	19700101	20991231	

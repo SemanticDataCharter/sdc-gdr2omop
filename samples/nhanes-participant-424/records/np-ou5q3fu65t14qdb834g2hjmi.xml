@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdc4:dm-tp5pg0u4dasqarie0b3ujn2u xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdc4="https://semanticdatacharter.com/ns/sdc4/" xsi:schemaLocation="https://semanticdatacharter.com/ns/sdc4/ https://semanticdatacharter.com/dmlib/dm-tp5pg0u4dasqarie0b3ujn2u.xsd">
+  <dm-label>NHANES Participant 4.2.4</dm-label>
+  <dm-language>en-US</dm-language>
+  <dm-encoding>utf-8</dm-encoding>
+  <creation_timestamp>2026-10-26T14:11:33.037441</creation_timestamp>
+  <instance_id>x5pjrq412jywar9wihuy3x30</instance_id>
+  <instance_version>1</instance_version>
+  <sdc4:ms-qsegrqlbnrpyedsuyh602l7p>
+    <label>NHANES Participant Governed Record</label>
+    <sdc4:ms-t2tvd3wylxrstdeu5aw6gkw1>
+      <label>Audit Event</label>
+      <sdc4:ms-hpkc8xrccpwc3shm4ubm5o47>
+        <sdc4:ms-dkc2ccj5te35z9gd4bu1blcq>
+          <label>Audit Agent Reference</label>
+          <xdstring-value>urn:fair-data-demo:pipeline:4.2.0</xdstring-value>
+        </sdc4:ms-dkc2ccj5te35z9gd4bu1blcq>
+      </sdc4:ms-hpkc8xrccpwc3shm4ubm5o47>
+      <sdc4:ms-ynnnvgi8748h2d01z2gf4z8x>
+        <sdc4:ms-gcjyjrnp0wsfoelcp4m05c67>
+          <label>Audit Entity Reference</label>
+          <xdstring-value>https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/DEMO_J.XPT#SEQN=98991</xdstring-value>
+        </sdc4:ms-gcjyjrnp0wsfoelcp4m05c67>
+      </sdc4:ms-ynnnvgi8748h2d01z2gf4z8x>
+      <sdc4:ms-uf11uwd9s5x5t9bw98z9dr5l>
+        <sdc4:ms-fjhgr5fyqxt2crmg2cb5c513>
+          <label>Audit Event Identifier</label>
+          <xdstring-value>urn:fair-data-demo:audit:demo_j:00005289</xdstring-value>
+        </sdc4:ms-fjhgr5fyqxt2crmg2cb5c513>
+      </sdc4:ms-uf11uwd9s5x5t9bw98z9dr5l>
+      <sdc4:ms-jwpkqjchavj885uwt5v1jgid>
+        <sdc4:ms-sndpbhm3xbd6qtbyxmvh3i0e>
+          <label>Data Subject Reference</label>
+          <xdstring-value>urn:nhanes:98991</xdstring-value>
+        </sdc4:ms-sndpbhm3xbd6qtbyxmvh3i0e>
+      </sdc4:ms-jwpkqjchavj885uwt5v1jgid>
+      <sdc4:ms-yec6svv50u9d1tz9rp6kmv3v>
+        <sdc4:ms-h3kdbvdtyalpvik97saaf0an>
+          <label>System Identifier</label>
+          <xdstring-value>urn:fair-data-demo:pipeline:4.2.0</xdstring-value>
+        </sdc4:ms-h3kdbvdtyalpvik97saaf0an>
+      </sdc4:ms-yec6svv50u9d1tz9rp6kmv3v>
+      <sdc4:ms-r6x55vvha5ci3rl1o29adk03>
+        <sdc4:ms-ujir739mf1g8ajeczs9nzh9m>
+          <label>System Location Name</label>
+          <xdstring-value>FAIR Data Demo, local</xdstring-value>
+        </sdc4:ms-ujir739mf1g8ajeczs9nzh9m>
+      </sdc4:ms-r6x55vvha5ci3rl1o29adk03>
+      <sdc4:ms-lcsns9hrrzcg74jlit8srxgp>
+        <sdc4:ms-ce1c8sydkov8bkv4dgdmwe5x>
+          <label>Audit Event Action</label>
+          <xdtoken-value>C</xdtoken-value>
+        </sdc4:ms-ce1c8sydkov8bkv4dgdmwe5x>
+      </sdc4:ms-lcsns9hrrzcg74jlit8srxgp>
+      <sdc4:ms-wu8f1x11e6ihbltdd6w20rg5>
+        <sdc4:ms-rpz1czz06jhpahmfz30rblvp>
+          <label>Audit Event Outcome</label>
+          <xdtoken-value>0</xdtoken-value>
+        </sdc4:ms-rpz1czz06jhpahmfz30rblvp>
+      </sdc4:ms-wu8f1x11e6ihbltdd6w20rg5>
+      <sdc4:ms-kce8557jd9vg6ei59m7o1kc2>
+        <sdc4:ms-vbctgmdcwps5b3r3l6sboa6y>
+          <label>Confidentiality</label>
+          <xdtoken-value>N</xdtoken-value>
+        </sdc4:ms-vbctgmdcwps5b3r3l6sboa6y>
+      </sdc4:ms-kce8557jd9vg6ei59m7o1kc2>
+      <sdc4:ms-vgvl7vcmbiz2z7zn9v7ayc04>
+        <sdc4:ms-jujsdur1igws8orw6tvvlqco>
+          <label>Provenance Agent Type</label>
+          <xdtoken-value>author</xdtoken-value>
+        </sdc4:ms-jujsdur1igws8orw6tvvlqco>
+      </sdc4:ms-vgvl7vcmbiz2z7zn9v7ayc04>
+      <sdc4:ms-xcmayroyt4krhroimfb3e859>
+        <sdc4:ms-d1evlz8yvdlwt6ia9fjq4pgj>
+          <label>Purpose of Use</label>
+          <xdtoken-value>HRESCH</xdtoken-value>
+        </sdc4:ms-d1evlz8yvdlwt6ia9fjq4pgj>
+      </sdc4:ms-xcmayroyt4krhroimfb3e859>
+      <sdc4:ms-r5fply6fvzhg90zybxgdx5cb>
+        <sdc4:ms-uwiosm2q9ym3ewr4de910s70>
+          <label>Audit Recorded At</label>
+          <xdtemporal-datetime>2026-09-26T00:00:00</xdtemporal-datetime>
+        </sdc4:ms-uwiosm2q9ym3ewr4de910s70>
+      </sdc4:ms-r5fply6fvzhg90zybxgdx5cb>
+    </sdc4:ms-t2tvd3wylxrstdeu5aw6gkw1>
+    <sdc4:ms-vianv75qjtm1agy1mhyctpvo>
+      <label>NHANES Participant</label>
+      <sdc4:ms-mcwxopvl79am1nwidvdhh6k1>
+        <label>NHANES Demographics</label>
+        <sdc4:ms-hd2y9az4fiex1lhvh3orhjw3>
+          <sdc4:ms-ex88a2s3ys6hm5pvv77j0q2u>
+            <label>Annual Household Income (INDHHIN2)</label>
+            <xdtoken-value>$100,000 and Over</xdtoken-value>
+          </sdc4:ms-ex88a2s3ys6hm5pvv77j0q2u>
+        </sdc4:ms-hd2y9az4fiex1lhvh3orhjw3>
+        <sdc4:ms-jwo5rjoh6737lnj9bz3qlgqw>
+          <sdc4:ms-ftyi95rho04uurpzxued878l>
+            <label>Citizenship Status (DMDCITZN)</label>
+            <xdtoken-value>Citizen by birth or naturalization</xdtoken-value>
+          </sdc4:ms-ftyi95rho04uurpzxued878l>
+        </sdc4:ms-jwo5rjoh6737lnj9bz3qlgqw>
+        <sdc4:ms-zd9y12at0wi7s2s86h1kn1w5>
+          <sdc4:ms-nwsj84veb6u9g1v0h2a3a793>
+            <label>Country of Birth (DMDBORN4)</label>
+            <xdtoken-value>Born in 50 US states or Washington, DC</xdtoken-value>
+          </sdc4:ms-nwsj84veb6u9g1v0h2a3a793>
+        </sdc4:ms-zd9y12at0wi7s2s86h1kn1w5>
+        <sdc4:ms-ie5poipwqh1xbxn9j4qqayd2>
+          <sdc4:ms-ock06zt2jnlwwicpkqpzbgmh>
+            <label>Education Level - Adults 20+ (DMDEDUC2)</label>
+            <xdtoken-value>High school graduate/GED or equivalent</xdtoken-value>
+          </sdc4:ms-ock06zt2jnlwwicpkqpzbgmh>
+        </sdc4:ms-ie5poipwqh1xbxn9j4qqayd2>
+        <sdc4:ms-f9sq1hdi3posurxbfkf3dwc5>
+          <sdc4:ms-sigmhjzuw16w0k8op92lk9sd>
+            <label>Gender (RIAGENDR)</label>
+            <xdtoken-value>Male</xdtoken-value>
+          </sdc4:ms-sigmhjzuw16w0k8op92lk9sd>
+        </sdc4:ms-f9sq1hdi3posurxbfkf3dwc5>
+        <sdc4:ms-eztp6dodpjmprjv81ihocegs>
+          <sdc4:ms-i3uys2dmi257jkdzavsst5az>
+            <label>Marital Status (DMDMARTL)</label>
+            <xdtoken-value>Married</xdtoken-value>
+          </sdc4:ms-i3uys2dmi257jkdzavsst5az>
+        </sdc4:ms-eztp6dodpjmprjv81ihocegs>
+        <sdc4:ms-e9ebuuahg802jfpfpg5w596x>
+          <sdc4:ms-d00bqkut44f2nxqcij9di549>
+            <label>Race/Hispanic Origin with NH Asian (RIDRETH3)</label>
+            <xdtoken-value>Mexican American</xdtoken-value>
+          </sdc4:ms-d00bqkut44f2nxqcij9di549>
+        </sdc4:ms-e9ebuuahg802jfpfpg5w596x>
+        <sdc4:ms-aerwuld48p0deu31rijadbv5>
+          <sdc4:ms-vyc62ndwazzqyn5ee5oeno1o>
+            <label>Veteran Status</label>
+            <xdtoken-value>No</xdtoken-value>
+          </sdc4:ms-vyc62ndwazzqyn5ee5oeno1o>
+        </sdc4:ms-aerwuld48p0deu31rijadbv5>
+        <sdc4:ms-lt5ldcz6erg3hhsij4pv7c43>
+          <sdc4:ms-qsetd453kk9own8co1wmc5cz>
+            <label>Marital Status</label>
+            <xdtoken-value>Married</xdtoken-value>
+          </sdc4:ms-qsetd453kk9own8co1wmc5cz>
+        </sdc4:ms-lt5ldcz6erg3hhsij4pv7c43>
+        <sdc4:ms-wzy3g7mcg3shr1ah8fhzxgkb>
+          <sdc4:ms-u5tietya3u56hbz2kos06ai7>
+            <label>Race/Ethnicity Self-Identification</label>
+            <xdtoken-value>Hispanic, Latino, or Spanish</xdtoken-value>
+          </sdc4:ms-u5tietya3u56hbz2kos06ai7>
+        </sdc4:ms-wzy3g7mcg3shr1ah8fhzxgkb>
+        <sdc4:ms-cpcvbb0xq072zk086ukfl41m>
+          <sdc4:ms-gxzbm758mhdz51xd4bawlfhh>
+            <label>Administrative Gender</label>
+            <xdtoken-value>male</xdtoken-value>
+          </sdc4:ms-gxzbm758mhdz51xd4bawlfhh>
+        </sdc4:ms-cpcvbb0xq072zk086ukfl41m>
+        <sdc4:ms-z1jdmme2x4b6i9dw8wj4ma79>
+          <sdc4:ms-qbp08a1gscple2aiuiwyfz2s>
+            <label>Total Number of People in the Household (DMDHHSIZ)</label>
+            <xdcount-value>2</xdcount-value>
+            <xdcount-units>
+              <label>Items</label>
+              <xdstring-value>items</xdstring-value>
+            </xdcount-units>
+          </sdc4:ms-qbp08a1gscple2aiuiwyfz2s>
+        </sdc4:ms-z1jdmme2x4b6i9dw8wj4ma79>
+        <sdc4:ms-zm46otmwkxgersw3y93icjp4>
+          <sdc4:ms-wuvdeiwoe5bna7nlhcl1c4h9>
+            <label>Age</label>
+            <xdcount-value>55</xdcount-value>
+            <xdcount-units>
+              <label>years or months</label>
+              <xdstring-value>years</xdstring-value>
+            </xdcount-units>
+          </sdc4:ms-wuvdeiwoe5bna7nlhcl1c4h9>
+        </sdc4:ms-zm46otmwkxgersw3y93icjp4>
+        <sdc4:ms-d7w94loovd5ur41vqfam4vuj>
+          <sdc4:ms-dwd4pk56w0pjchsyzl81fzya>
+            <label>Ratio of Family Income to Poverty (INDFMPIR)</label>
+            <xdquantity-value>5</xdquantity-value>
+            <xdquantity-units>
+              <label>Sample Weight</label>
+              <xdstring-value>1</xdstring-value>
+            </xdquantity-units>
+          </sdc4:ms-dwd4pk56w0pjchsyzl81fzya>
+        </sdc4:ms-d7w94loovd5ur41vqfam4vuj>
+      </sdc4:ms-mcwxopvl79am1nwidvdhh6k1>
+      <sdc4:ms-hmaeg366kmkc99g6gdsejufy>
+        <label>NHANES Medical Conditions</label>
+        <sdc4:ms-bq0dx31j0dzk5dsof8aoxfqk>
+          <label>Chronic Condition Indicators</label>
+          <sdc4:ms-qwr8oppceuigsrirvnpcjyed>
+            <sdc4:ms-o4d67oubyyunugx3la44f53u>
+              <label>Condition: Angina</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-o4d67oubyyunugx3la44f53u>
+          </sdc4:ms-qwr8oppceuigsrirvnpcjyed>
+          <sdc4:ms-cpjtssbqqnsi8kosc7cta973>
+            <sdc4:ms-nd1v8jk7wtm1tthzw1f4987t>
+              <label>Condition: Arthritis</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-nd1v8jk7wtm1tthzw1f4987t>
+          </sdc4:ms-cpjtssbqqnsi8kosc7cta973>
+          <sdc4:ms-lm8riadasawyvighwhidnfmr>
+            <sdc4:ms-acr1xvqppf1b3rjsrst6tt4p>
+              <label>Condition: Asthma</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-acr1xvqppf1b3rjsrst6tt4p>
+          </sdc4:ms-lm8riadasawyvighwhidnfmr>
+          <sdc4:ms-e0tdiylevix76r3l64fh8j4x>
+            <sdc4:ms-ix0my2v2z79s002g0r8orosf>
+              <label>Condition: Cancer</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-ix0my2v2z79s002g0r8orosf>
+          </sdc4:ms-e0tdiylevix76r3l64fh8j4x>
+          <sdc4:ms-c2ley3g1nu17i3djd4cotr88>
+            <sdc4:ms-jyx7rxfktazhgxgq84fxf6wr>
+              <label>Condition: Chronic Bronchitis</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-jyx7rxfktazhgxgq84fxf6wr>
+          </sdc4:ms-c2ley3g1nu17i3djd4cotr88>
+          <sdc4:ms-x6hucojdpiqdr60u3zxse3dl>
+            <sdc4:ms-hyqlz591lhj54sdt1a1mup70>
+              <label>Condition: Congestive Heart Failure</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-hyqlz591lhj54sdt1a1mup70>
+          </sdc4:ms-x6hucojdpiqdr60u3zxse3dl>
+          <sdc4:ms-byxxuau9d2hajbla9wwc442t>
+            <sdc4:ms-mijr18ynaqde2l8jps70l2g6>
+              <label>Condition: COPD</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-mijr18ynaqde2l8jps70l2g6>
+          </sdc4:ms-byxxuau9d2hajbla9wwc442t>
+          <sdc4:ms-livh99p75uo3mssipi40v044>
+            <sdc4:ms-udbydjqj76l8kl6mi2s3v7vd>
+              <label>Condition: Coronary Heart Disease</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-udbydjqj76l8kl6mi2s3v7vd>
+          </sdc4:ms-livh99p75uo3mssipi40v044>
+          <sdc4:ms-zosryxykww1exsfjtb0s3fzv>
+            <sdc4:ms-sbulkq80j4fkbiql4zgje4qr>
+              <label>Condition: Emphysema</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-sbulkq80j4fkbiql4zgje4qr>
+          </sdc4:ms-zosryxykww1exsfjtb0s3fzv>
+          <sdc4:ms-p4c4kczn0x3qkvzk6vty9vrs>
+            <sdc4:ms-yshoeps2dm0j1ueusqs825v6>
+              <label>Condition: Heart Attack</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-yshoeps2dm0j1ueusqs825v6>
+          </sdc4:ms-p4c4kczn0x3qkvzk6vty9vrs>
+          <sdc4:ms-ks4buqh74w0bdcwdk6ky6ntr>
+            <sdc4:ms-y3m4tg7u1io8bimkhiuxz8zb>
+              <label>Condition Indicator Basis</label>
+              <xdtoken-value>Self-report of a professional diagnosis</xdtoken-value>
+            </sdc4:ms-y3m4tg7u1io8bimkhiuxz8zb>
+          </sdc4:ms-ks4buqh74w0bdcwdk6ky6ntr>
+          <sdc4:ms-rhb4ksmdy1b0rx39kbpt9l2f>
+            <sdc4:ms-atqkooccakulfhkt18c008fx>
+              <label>Condition: Liver Condition</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-atqkooccakulfhkt18c008fx>
+          </sdc4:ms-rhb4ksmdy1b0rx39kbpt9l2f>
+          <sdc4:ms-fblg9innykrg6wveclrn2gz7>
+            <sdc4:ms-zc6p008h5naqev8zngtzvyx9>
+              <label>Condition: Stroke</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-zc6p008h5naqev8zngtzvyx9>
+          </sdc4:ms-fblg9innykrg6wveclrn2gz7>
+          <sdc4:ms-y429feu1qzr7lnagv9ua2cc6>
+            <sdc4:ms-p8u71b4lhct4ra0szgkex7xo>
+              <label>Condition: Thyroid Problem</label>
+              <xdtoken-value>No</xdtoken-value>
+            </sdc4:ms-p8u71b4lhct4ra0szgkex7xo>
+          </sdc4:ms-y429feu1qzr7lnagv9ua2cc6>
+        </sdc4:ms-bq0dx31j0dzk5dsof8aoxfqk>
+        <sdc4:ms-l94h9ni4l2siqaclko1rqluo>
+          <sdc4:ms-fwyb9ukfypotqkvahtygrjo5>
+            <label>Doctor Ever Said You Were Overweight (MCQ080)</label>
+            <xdtoken-value>No</xdtoken-value>
+          </sdc4:ms-fwyb9ukfypotqkvahtygrjo5>
+        </sdc4:ms-l94h9ni4l2siqaclko1rqluo>
+      </sdc4:ms-hmaeg366kmkc99g6gdsejufy>
+      <sdc4:ms-wm4o1tvmo89r0wn7ailb51v2>
+        <label>NHANES Physical Functioning</label>
+        <sdc4:ms-fgx8wb0e1gi2a073zfqic3dx>
+          <sdc4:ms-jxdk8rs1m133yzb52rfs08hy>
+            <label>Experience Confusion or Memory Problems (PFQ057)</label>
+            <xdtoken-value>No</xdtoken-value>
+          </sdc4:ms-jxdk8rs1m133yzb52rfs08hy>
+        </sdc4:ms-fgx8wb0e1gi2a073zfqic3dx>
+        <sdc4:ms-vlhnalk1yx6kagpbnl4oxdct>
+          <sdc4:ms-gxy0s65v35djnq875rzhcmby>
+            <label>Limitations Keeping You from Working (PFQ049)</label>
+            <xdtoken-value>No</xdtoken-value>
+          </sdc4:ms-gxy0s65v35djnq875rzhcmby>
+        </sdc4:ms-vlhnalk1yx6kagpbnl4oxdct>
+        <sdc4:ms-q5uzvt51xpffw2hs4ckqujib>
+          <sdc4:ms-wh4zkqhos44fbb5p0b5c7w1d>
+            <label>Need Special Equipment to Walk (PFQ054)</label>
+            <xdtoken-value>No</xdtoken-value>
+          </sdc4:ms-wh4zkqhos44fbb5p0b5c7w1d>
+        </sdc4:ms-q5uzvt51xpffw2hs4ckqujib>
+      </sdc4:ms-wm4o1tvmo89r0wn7ailb51v2>
+      <sdc4:ms-u3nopo5pxqb1dwwk3u0fyp6e>
+        <label>NHANES Smoking</label>
+        <sdc4:ms-zko914e71af1esesgxbk5c9y>
+          <sdc4:ms-mq5xicyh1n3d8ofhyroazip2>
+            <label>Do You Now Smoke Cigarettes (SMQ040)</label>
+            <xdtoken-value>Not at all</xdtoken-value>
+          </sdc4:ms-mq5xicyh1n3d8ofhyroazip2>
+        </sdc4:ms-zko914e71af1esesgxbk5c9y>
+        <sdc4:ms-oak69ptv9frzss1o4h5c8ezc>
+          <sdc4:ms-gy1045dipmx8udv1bndk7hrv>
+            <label>Ever Used an E-cigarette (SMQ900)</label>
+            <xdtoken-value>No</xdtoken-value>
+          </sdc4:ms-gy1045dipmx8udv1bndk7hrv>
+        </sdc4:ms-oak69ptv9frzss1o4h5c8ezc>
+        <sdc4:ms-l43uev0e8s98gwnuin5af2ix>
+          <sdc4:ms-lnbzdjsluc4ebnri7k4dvn2i>
+            <label>Smoked at Least 100 Cigarettes in Life (SMQ020)</label>
+            <xdtoken-value>Yes</xdtoken-value>
+          </sdc4:ms-lnbzdjsluc4ebnri7k4dvn2i>
+        </sdc4:ms-l43uev0e8s98gwnuin5af2ix>
+        <sdc4:ms-gltl14s59crclwwf1pp1j5l5>
+          <sdc4:ms-n7pn5ctqo81v0v418hez5zv5>
+            <label>Smoking Status</label>
+            <xdtoken-value>Former smoker</xdtoken-value>
+          </sdc4:ms-n7pn5ctqo81v0v418hez5zv5>
+        </sdc4:ms-gltl14s59crclwwf1pp1j5l5>
+        <sdc4:ms-qm62rjqhrpnh1rjwaa4x8jet>
+          <sdc4:ms-wlfal1j4vnwy76szun72madm>
+            <label>Age Started Smoking Cigarettes Regularly (SMD030)</label>
+            <xdcount-value>18</xdcount-value>
+            <xdcount-units>
+              <label>Years</label>
+              <xdstring-value>years</xdstring-value>
+            </xdcount-units>
+          </sdc4:ms-wlfal1j4vnwy76szun72madm>
+        </sdc4:ms-qm62rjqhrpnh1rjwaa4x8jet>
+      </sdc4:ms-u3nopo5pxqb1dwwk3u0fyp6e>
+      <sdc4:ms-odbroobvrx8dsx7ay24toth7>
+        <label>NHANES Survey Design</label>
+        <sdc4:ms-rfd1vy3yaf6dmvs3kttlh6wx>
+          <sdc4:ms-k52nvzllwurg016nvsulpm32>
+            <label>Data Release Cycle (SDDSRVYR)</label>
+            <xdtoken-value>NHANES 2017-2018 public release</xdtoken-value>
+          </sdc4:ms-k52nvzllwurg016nvsulpm32>
+        </sdc4:ms-rfd1vy3yaf6dmvs3kttlh6wx>
+        <sdc4:ms-kmpj9imo70j9yer5ygkphykm>
+          <sdc4:ms-j9l0spojx47xnjqipfl9mzte>
+            <label>Interview/Examination Status (RIDSTATR)</label>
+            <xdtoken-value>Interviewed only</xdtoken-value>
+          </sdc4:ms-j9l0spojx47xnjqipfl9mzte>
+        </sdc4:ms-kmpj9imo70j9yer5ygkphykm>
+        <sdc4:ms-jz23efi6l8wv5da4n8coe5x2>
+          <sdc4:ms-vxldr9jodr9eu5uol3g4c189>
+            <label>Masked Variance Pseudo-PSU (SDMVPSU)</label>
+            <xdcount-value>1</xdcount-value>
+            <xdcount-units>
+              <label>Items</label>
+              <xdstring-value>items</xdstring-value>
+            </xdcount-units>
+          </sdc4:ms-vxldr9jodr9eu5uol3g4c189>
+        </sdc4:ms-jz23efi6l8wv5da4n8coe5x2>
+        <sdc4:ms-twkp89xeg2dr6pnwxsxl35ys>
+          <sdc4:ms-yksuiithtrif7jdrjpi4o7eg>
+            <label>Masked Variance Pseudo-Stratum (SDMVSTRA)</label>
+            <xdcount-value>145</xdcount-value>
+            <xdcount-units>
+              <label>Items</label>
+              <xdstring-value>items</xdstring-value>
+            </xdcount-units>
+          </sdc4:ms-yksuiithtrif7jdrjpi4o7eg>
+        </sdc4:ms-twkp89xeg2dr6pnwxsxl35ys>
+        <sdc4:ms-jpt3gmoetoatx49enk7dl1zy>
+          <sdc4:ms-zmw9684hejwjsfcg6t71jkgl>
+            <label>Full Sample 2 Year Interview Weight (WTINT2YR)</label>
+            <xdquantity-value>47428.8112045373</xdquantity-value>
+            <xdquantity-units>
+              <label>Sample Weight</label>
+              <xdstring-value>1</xdstring-value>
+            </xdquantity-units>
+          </sdc4:ms-zmw9684hejwjsfcg6t71jkgl>
+        </sdc4:ms-jpt3gmoetoatx49enk7dl1zy>
+        <sdc4:ms-st2ei5u3i891t2z0lw42o1nr>
+          <sdc4:ms-w7xdjmfmoev4of0gd76mtnto>
+            <label>Full Sample 2 Year MEC Exam Weight (WTMEC2YR)</label>
+            <xdquantity-value>0</xdquantity-value>
+            <xdquantity-units>
+              <label>Sample Weight</label>
+              <xdstring-value>1</xdstring-value>
+            </xdquantity-units>
+          </sdc4:ms-w7xdjmfmoev4of0gd76mtnto>
+        </sdc4:ms-st2ei5u3i891t2z0lw42o1nr>
+      </sdc4:ms-odbroobvrx8dsx7ay24toth7>
+      <sdc4:ms-ijj1g8r7gy94nivsf80yzp3y>
+        <sdc4:ms-uto4zszvpicva38wx77knz5y>
+          <label>Respondent Sequence Number (SEQN)</label>
+          <xdstring-value>98991</xdstring-value>
+        </sdc4:ms-uto4zszvpicva38wx77knz5y>
+      </sdc4:ms-ijj1g8r7gy94nivsf80yzp3y>
+    </sdc4:ms-vianv75qjtm1agy1mhyctpvo>
+    <sdc4:ms-vmikfu0irht9fmq7q02t3oqs>
+      <label>PROV Activity</label>
+      <sdc4:ms-vycps7awt38y25jhnrr4okxt>
+        <sdc4:ms-hhusuzzig19rs46ngz23k5g7>
+          <label>Activity Description</label>
+          <xdstring-value>One row of DEMO_J.XPT (NHANES 2017-2018 public release) generated as a NHANES Participant 4.2.4 record by the FAIR Data Demo pipeline.</xdstring-value>
+        </sdc4:ms-hhusuzzig19rs46ngz23k5g7>
+      </sdc4:ms-vycps7awt38y25jhnrr4okxt>
+      <sdc4:ms-o9p6k7c9ie20j5du0jmd3749>
+        <sdc4:ms-wr06h54xqqw2q9id8i9673jy>
+          <label>Activity Identifier</label>
+          <xdstring-value>urn:fair-data-demo:activity:demo_j:00005289</xdstring-value>
+        </sdc4:ms-wr06h54xqqw2q9id8i9673jy>
+      </sdc4:ms-o9p6k7c9ie20j5du0jmd3749>
+      <sdc4:ms-o0qu77y6w4lwvu2qhms3ilbw>
+        <sdc4:ms-r6hkunjm2q0hlxiknlc9ljix>
+          <label>Activity Label</label>
+          <xdstring-value>Generate a NHANES Participant 4.2.4 record from DEMO_J.XPT</xdstring-value>
+        </sdc4:ms-r6hkunjm2q0hlxiknlc9ljix>
+      </sdc4:ms-o0qu77y6w4lwvu2qhms3ilbw>
+      <sdc4:ms-qeu9jq1owxxh2woqo1f7m8jk>
+        <sdc4:ms-jjzmhdxvbt97pq81iwqubtxk>
+          <label>Activity Type</label>
+          <xdstring-value>RecordGeneration</xdstring-value>
+        </sdc4:ms-jjzmhdxvbt97pq81iwqubtxk>
+      </sdc4:ms-qeu9jq1owxxh2woqo1f7m8jk>
+      <sdc4:ms-mjj6mlhqgzcprfwuwnhu5npz>
+        <sdc4:ms-t0whhrqtnb54te4mk48i1ooj>
+          <label>Used Entity Reference</label>
+          <xdstring-value>https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/DEMO_J.XPT</xdstring-value>
+        </sdc4:ms-t0whhrqtnb54te4mk48i1ooj>
+      </sdc4:ms-mjj6mlhqgzcprfwuwnhu5npz>
+      <sdc4:ms-in4ct2aoguzdvzg4mlsmsxfd>
+        <sdc4:ms-r48alj7hc3797qfjnf2uj71n>
+          <label>Was Associated With Reference</label>
+          <xdstring-value>urn:fair-data-demo:pipeline:4.2.0</xdstring-value>
+        </sdc4:ms-r48alj7hc3797qfjnf2uj71n>
+      </sdc4:ms-in4ct2aoguzdvzg4mlsmsxfd>
+      <sdc4:ms-q4rwxzoldz452g7rbii2an1h>
+        <sdc4:ms-wl6j4ekcmu4hvt2m12zw4zp8>
+          <label>Activity Status</label>
+          <xdtoken-value>ActivityCompleted</xdtoken-value>
+        </sdc4:ms-wl6j4ekcmu4hvt2m12zw4zp8>
+      </sdc4:ms-q4rwxzoldz452g7rbii2an1h>
+      <sdc4:ms-xiy4gn6vievei3614sso5vmk>
+        <sdc4:ms-a5scyosu6j84vz350mqyrzl2>
+          <label>Ended At</label>
+          <xdtemporal-datetime>2026-09-26T00:00:00</xdtemporal-datetime>
+        </sdc4:ms-a5scyosu6j84vz350mqyrzl2>
+      </sdc4:ms-xiy4gn6vievei3614sso5vmk>
+      <sdc4:ms-vzyuqpkegby4er3pw12gxw2c>
+        <sdc4:ms-sa4nl1kbpdr842fkucvfjkpq>
+          <label>Started At</label>
+          <xdtemporal-datetime>2026-09-26T00:00:00</xdtemporal-datetime>
+        </sdc4:ms-sa4nl1kbpdr842fkucvfjkpq>
+      </sdc4:ms-vzyuqpkegby4er3pw12gxw2c>
+    </sdc4:ms-vmikfu0irht9fmq7q02t3oqs>
+    <sdc4:ms-c179ilk2ns15cd5rzzdfd6f6>
+      <label>PROV Agent</label>
+      <sdc4:ms-qfmes86biux1nl7gbaowsgc4>
+        <sdc4:ms-w2ruemcfy35rw60jl1t9dew2>
+          <label>Agent Identifier</label>
+          <xdstring-value>urn:fair-data-demo:pipeline:4.2.0</xdstring-value>
+        </sdc4:ms-w2ruemcfy35rw60jl1t9dew2>
+      </sdc4:ms-qfmes86biux1nl7gbaowsgc4>
+      <sdc4:ms-ljldab8e1bjizncv01akb0n5>
+        <sdc4:ms-xxe21o9ojzmy9wxxky1tnmog>
+          <label>Agent Name</label>
+          <xdstring-value>FAIR Data Demo pipeline</xdstring-value>
+        </sdc4:ms-xxe21o9ojzmy9wxxky1tnmog>
+      </sdc4:ms-ljldab8e1bjizncv01akb0n5>
+      <sdc4:ms-f6z431hl60ra8eqbrcyrsvji>
+        <sdc4:ms-eftvwi5byq6cdtd931qyxzw0>
+          <label>Agent Organization Name</label>
+          <xdstring-value>Semantic Data Charter</xdstring-value>
+        </sdc4:ms-eftvwi5byq6cdtd931qyxzw0>
+      </sdc4:ms-f6z431hl60ra8eqbrcyrsvji>
+      <sdc4:ms-cpaj0unbnudntl1brmdnuqhu>
+        <sdc4:ms-aa663ivutjf2fs4757t0bbzy>
+          <label>Software Name</label>
+          <xdstring-value>FAIR Data Demo</xdstring-value>
+        </sdc4:ms-aa663ivutjf2fs4757t0bbzy>
+      </sdc4:ms-cpaj0unbnudntl1brmdnuqhu>
+      <sdc4:ms-ebn1a6s1d1dy724l4y692qsl>
+        <sdc4:ms-x0lebwtobgaelj5pev3258sd>
+          <label>Software Version</label>
+          <xdstring-value>4.2.3</xdstring-value>
+        </sdc4:ms-x0lebwtobgaelj5pev3258sd>
+      </sdc4:ms-ebn1a6s1d1dy724l4y692qsl>
+      <sdc4:ms-y1u3ladafqtryhgyetpn5ild>
+        <sdc4:ms-i16vqj89it3db7d3c5qjko9p>
+          <label>PROV Agent Type</label>
+          <xdtoken-value>SoftwareAgent</xdtoken-value>
+        </sdc4:ms-i16vqj89it3db7d3c5qjko9p>
+      </sdc4:ms-y1u3ladafqtryhgyetpn5ild>
+    </sdc4:ms-c179ilk2ns15cd5rzzdfd6f6>
+  </sdc4:ms-qsegrqlbnrpyedsuyh602l7p>
+  <subject>
+    <label>NHANES Participant</label>
+    <party-name>98991</party-name>
+  </subject>
+  <provider>
+    <label>NHANES (National Center for Health Statistics, Centers for Disease Control and Prevention)</label>
+    <party-name>National Center for Health Statistics, Centers for Disease Control and Prevention</party-name>
+  </provider>
+  <sdc4:ms-nz4t9iecyq1ukvs4s3ymgd8t>
+    <label>FAIR Pipeline Audit</label>
+    <system-id>
+      <label>FAIR Pipeline Identifier</label>
+      <xdstring-value>urn:fair-data-demo:pipeline:4.2.0</xdstring-value>
+    </system-id>
+    <system-user>
+      <label>FAIR Pipeline User</label>
+    </system-user>
+    <location>
+      <label>FAIR Source File</label>
+      <sdc4:ms-q0ckidtsg1x3iav6nrt8fo0l>
+        <label>PROV Entity</label>
+        <sdc4:ms-wy38zv02dmcp5gjul57yejmk>
+          <sdc4:ms-abub2eah26yd2uzni3p9l58i>
+            <label>Entity Description</label>
+            <xdstring-value>NHANES 2017-2018 public release</xdstring-value>
+          </sdc4:ms-abub2eah26yd2uzni3p9l58i>
+        </sdc4:ms-wy38zv02dmcp5gjul57yejmk>
+        <sdc4:ms-gujvcggdotm3z1hmygdrey09>
+          <sdc4:ms-i1defiugxfdcwfb9rqv4p5tz>
+            <label>Entity Identifier</label>
+            <xdstring-value>https://wwwn.cdc.gov/Nchs/Nhanes/2017-2018/DEMO_J.XPT</xdstring-value>
+          </sdc4:ms-i1defiugxfdcwfb9rqv4p5tz>
+        </sdc4:ms-gujvcggdotm3z1hmygdrey09>
+        <sdc4:ms-s0xrd3gbobtgtexdxkxcor3l>
+          <sdc4:ms-m9minyaug6ypyzt52zfxlyyi>
+            <label>Entity Label</label>
+            <xdstring-value>DEMO_J.XPT</xdstring-value>
+          </sdc4:ms-m9minyaug6ypyzt52zfxlyyi>
+        </sdc4:ms-s0xrd3gbobtgtexdxkxcor3l>
+      </sdc4:ms-q0ckidtsg1x3iav6nrt8fo0l>
+    </location>
+    <timestamp>2026-09-26T00:00:00</timestamp>
+  </sdc4:ms-nz4t9iecyq1ukvs4s3ymgd8t>
+</sdc4:dm-tp5pg0u4dasqarie0b3ujn2u>

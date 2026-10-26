@@ -18,9 +18,11 @@ from sdc_gdr2omop.writer import ddl_statements, load
 ROOT = Path(__file__).resolve().parents[1]
 VOCAB = ROOT / "tests" / "vocabulary-made-up"
 SDC4 = "https://semanticdatacharter.com/ns/sdc4/"
-#: NHANES Participant 4.2.0, and 4.2.3, which composes the NIH CDE library's corrected "Are you pregnant now?"
-#: (E-2026-10-01). Both mappings stay published: records made on 4.2.0 still exist.
-PARTICIPANTS = [("nhanes-participant", "xy8upneajsb8vdcmnve01g6g"), ("nhanes-participant-423", "eehpfapwgvxtzdrofgstdcfs")]
+#: NHANES Participant 4.2.0; 4.2.3, which composes the NIH CDE library's corrected "Are you pregnant now?"
+#: (E-2026-10-01); and 4.2.4, whose value bindings name codes their terminologies confirm (E-2026-10-03). Every mapping
+#: stays published: records made on the retired models still exist.
+PARTICIPANTS = [("nhanes-participant", "xy8upneajsb8vdcmnve01g6g"), ("nhanes-participant-423", "eehpfapwgvxtzdrofgstdcfs"),
+                ("nhanes-participant-424", "tp5pg0u4dasqarie0b3ujn2u")]
 MEDICATION = ("nhanes-medication", "epbdfmvxc3gbh5f66hhb3o2m")
 
 
@@ -29,7 +31,7 @@ def engine(tmp_path_factory):
     return Engine(schema_dir=tmp_path_factory.mktemp("schemas"))
 
 
-@pytest.fixture(params=PARTICIPANTS, ids=["4.2.0", "4.2.3"])
+@pytest.fixture(params=PARTICIPANTS, ids=["4.2.0", "4.2.3", "4.2.4"])
 def participant(request):
     return request.param
 
@@ -200,7 +202,8 @@ def test_the_pregnancy_answers_carry_the_codes_their_model_binds(engine):
     made on 4.2.0 carries that binding, and the mapping looks up what the model says; 4.2.3 binds the right codes."""
     concepts = {"2000000015": "LA15173-0", "2000000016": "LA26683-5", "2000000017": "LA4489-6"}
     expected = {PARTICIPANTS[0]: ("owjt9bcgisxfbco8qnddo2fq", {"Yes": "LA26683-5", "No": "LA4489-6", "Unknown": "LA15173-0"}),
-                PARTICIPANTS[1]: ("zmpqfc6tb0o2hgu8qs6lj8tp", {"Yes": "LA15173-0", "No": "LA26683-5", "Unknown": "LA4489-6"})}
+                PARTICIPANTS[1]: ("zmpqfc6tb0o2hgu8qs6lj8tp", {"Yes": "LA15173-0", "No": "LA26683-5", "Unknown": "LA4489-6"}),
+                PARTICIPANTS[2]: ("zmpqfc6tb0o2hgu8qs6lj8tp", {"Yes": "LA15173-0", "No": "LA26683-5", "Unknown": "LA4489-6"})}
     for doc, (component, codes) in expected.items():
         seen = {}
         for f in records(doc):
@@ -209,3 +212,48 @@ def test_the_pregnancy_answers_carry_the_codes_their_model_binds(engine):
                 if o["observation_source_value"] == component:
                     seen[o["value_source_value"]] = concepts.get(o["value_as_concept_id"])
         assert seen and all(codes[answer] == code for answer, code in seen.items()), (doc, seen)
+
+
+def _answers(engine, doc) -> dict[tuple[str, str], str]:
+    """(SEQN, answer text) -> the code of its value_as_concept_id in the made-up vocabulary ("0": no concept)."""
+    import re
+    codes = {r["concept_id"]: r["concept_code"] for r in csv.DictReader(open(VOCAB / "CONCEPT.csv"), delimiter="\t")}
+    out = {}
+    for f in records(doc):
+        xml = f.read_bytes()
+        seqn = re.search(rb"DEMO_J\.XPT#SEQN=(\d+)", xml).group(1).decode()
+        for o in rows(run(engine, doc, xml, OMOPMapper(VOCAB)), "observation"):
+            if o["value_source_value"]:
+                out[(seqn, o["value_source_value"])] = codes.get(o["value_as_concept_id"], "0")
+    return out
+
+
+def test_the_corrected_value_bindings_reach_value_as_concept_id(engine):
+    """E-2026-10-03: 4.2.3 bound every level of the difficulty scale to NCIt Unknown, both pregnancy-at-exam answers to
+    C25191 (Person Name), both citizenship answers to C41130 (Significant). For the same participants, 4.2.4 looks up
+    the codes its terminologies confirm."""
+    before, after = _answers(engine, PARTICIPANTS[1]), _answers(engine, PARTICIPANTS[2])
+    expected = {"No difficulty": ("C17998", "C121736"), "Some difficulty": ("C17998", "C121739"),
+                "Much difficulty": ("C17998", "C121740"), "Unable to do": ("C17998", "C121742"),
+                "Not pregnant at exam": ("C25191", "C82475"), "Citizen by birth or naturalization": ("C41130", "C90516"),
+                "College graduate or above": ("C39303", "C159746")}
+    for answer, (old, new) in expected.items():
+        shared = [k for k in before if k[1] == answer and k in after]
+        assert shared, answer
+        assert all(before[k] == old and after[k] == new for k in shared), (answer, [(before[k], after[k]) for k in shared])
+
+
+def test_a_value_defined_by_a_codebook_page_has_no_concept(engine):
+    """E-2026-10-03 defines a value no concept says exactly by the agency's codebook (DEMO_J.htm#DMDCITZN,
+    PFQ_J.htm). A codebook page is not a code: the value has no concept, its text is the source value, and no cell
+    names the codebook or the variable its anchor points at."""
+    doc = PARTICIPANTS[2]
+    after = _answers(engine, doc)
+    for answer in ("Not a citizen of the US", "Less than 9th grade", "Do not do this activity"):
+        found = [code for (_, text), code in after.items() if text == answer]
+        assert found and set(found) == {"0"}, (answer, found)
+    for f in records(doc):
+        for data in run(engine, doc, f.read_bytes(), OMOPMapper(VOCAB)).files.values():
+            text = data.decode()
+            assert not any(x in text for x in ("DEMO_J.htm", "PFQ_J.htm", "DMDCITZN", "DMDEDUC2")), f.name
+
