@@ -1,5 +1,17 @@
 # Changelog
 
+## 4.0.4 (2026-10-26)
+
+- **NHANES Participant 4.2.4** (`tp5pg0u4dasqarie0b3ujn2u`): its mapping, a sample of 200 of its records (the 4.2.3
+  sample's participants), and the tests on it beside 4.2.0 and 4.2.3. The FAIR Data Demo's 4.2.4 binds its values to
+  codes their terminologies confirm (E-2026-10-03): 4.2.3 bound every level of the difficulty scale to NCIt Unknown,
+  both pregnancy-at-exam answers to C25191 (Person Name) and both citizenship answers to C41130 (Significant). For the
+  same participants, value_as_concept_id now looks up C121736 to C121742, C82475 Not Pregnant and C90516 Citizen.
+- A value 4.2.4 defines by an agency codebook page (no concept says exactly what it says: "Not a citizen of the US",
+  "Less than 9th grade", "Do not do this activity") has value_as_concept_id 0 and its text as value_source_value; no
+  cell names the codebook or the variable its anchor points at. A test holds both.
+- The 4.2.0 and 4.2.3 mappings stay: both models are retired, and records made on them still exist.
+
 ## 4.0.3 (2026-10-25)
 
 - **NHANES Participant 4.2.3** (`eehpfapwgvxtzdrofgstdcfs`): its mapping, a seeded sample of 200 of its records, and

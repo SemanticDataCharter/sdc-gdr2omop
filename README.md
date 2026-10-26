@@ -5,12 +5,16 @@ Governed Data Records as rows of the OMOP Common Data Model 5.4. A target mapper
 against its model and reports each one; this package says which OMOP table and column each value goes to, takes each
 row's concept from the model, and writes one CSV per table. Outbound only. Apache 2.0.
 
-**Status:** 4.0.3. Models so far, from the [FAIR Data Demo](https://github.com/SemanticDataCharter/FAIR_Data_Demo):
-**NHANES Participant 4.2.3** (`eehpfapwgvxtzdrofgstdcfs`), **NHANES Participant** (4.2.0, `xy8upneajsb8vdcmnve01g6g`)
-and **NHANES Medication** (`epbdfmvxc3gbh5f66hhb3o2m`). NHANES Participant 4.2.3 composes the NIH CDE library's
-corrected "Are you pregnant now?": NIH's record bound each answer to the next value's LOINC code (the FAIR Data Demo's
-`SOURCE-ERRATA.md`, E-2026-10-01). The 4.2.0 mapping stays: records made on that model still exist, and its mapping
-writes the codes that model binds.
+**Status:** 4.0.4. Models so far, from the [FAIR Data Demo](https://github.com/SemanticDataCharter/FAIR_Data_Demo):
+**NHANES Participant 4.2.4** (`tp5pg0u4dasqarie0b3ujn2u`), **NHANES Participant 4.2.3** (retired,
+`eehpfapwgvxtzdrofgstdcfs`), **NHANES Participant** (4.2.0, retired, `xy8upneajsb8vdcmnve01g6g`) and **NHANES
+Medication** (`epbdfmvxc3gbh5f66hhb3o2m`). NHANES Participant 4.2.3 composes the NIH CDE library's corrected "Are you
+pregnant now?" (NIH's record bound each answer to the next value's LOINC code: the FAIR Data Demo's `SOURCE-ERRATA.md`,
+E-2026-10-01); 4.2.4 binds its values to codes their terminologies confirm, where 4.2.3 bound every level of the
+difficulty scale to Unknown and some answers to unrelated concepts (E-2026-10-03). A value no concept says exactly is
+defined by the agency's codebook, which is not a code: its row has value_as_concept_id 0 and the answer as
+value_source_value. The earlier mappings stay: records made on the retired models still exist, and each mapping
+writes the codes its model binds.
 
 ## Use
 
@@ -19,7 +23,7 @@ from sdc_mapper import Engine, load_mapping
 from sdc_gdr2omop import OMOPMapper, mapping_path
 
 mapper = OMOPMapper("/path/to/athena")         # or SDC_OMOP_VOCABULARY; without one, every concept_id is 0
-result = Engine().map_record(xml, mapper, load_mapping(mapping_path("eehpfapwgvxtzdrofgstdcfs")))
+result = Engine().map_record(xml, mapper, load_mapping(mapping_path("tp5pg0u4dasqarie0b3ujn2u")))
 result.files            # {"person.csv": ..., "measurement.csv": ..., ...}, the DDL's columns in order
 result.report           # every value: lookup, declared, carried or not representable, and why
 ```
@@ -87,8 +91,9 @@ Every value of every record, the record's provenance and audit included:
 |---|---|---|---|---|---|---|
 | NHANES Participant | 200 | 19226 | 9045 (47.0%) | 2023 (10.5%) | 44 (0.2%) | 8114 (42.2%) |
 | NHANES Participant 4.2.3 | 200 | 19235 | 9051 (47.1%) | 2041 (10.6%) | 50 (0.3%) | 8093 (42.1%) |
+| NHANES Participant 4.2.4 | 200 | 19235 | 9026 (46.9%) | 2066 (10.7%) | 50 (0.3%) | 8093 (42.1%) |
 | NHANES Medication | 200 | 6991 | 400 (5.7%) | 591 (8.5%) | 200 (2.9%) | 5800 (83.0%) |
-| **All** | 600 | 45452 | 18496 (40.7%) | 4655 (10.2%) | 294 (0.6%) | 22007 (48.4%) |
+| **All** | 800 | 64687 | 27522 (42.5%) | 6721 (10.4%) | 344 (0.5%) | 30100 (46.5%) |
 
 The record's data alone (provenance and audit left out):
 
@@ -96,8 +101,9 @@ The record's data alone (provenance and audit left out):
 |---|---|---|---|---|---|---|
 | NHANES Participant | 200 | 13826 | 9045 (65.4%) | 2023 (14.6%) | 44 (0.3%) | 2714 (19.6%) |
 | NHANES Participant 4.2.3 | 200 | 13835 | 9051 (65.4%) | 2041 (14.8%) | 50 (0.4%) | 2693 (19.5%) |
+| NHANES Participant 4.2.4 | 200 | 13835 | 9026 (65.2%) | 2066 (14.9%) | 50 (0.4%) | 2693 (19.5%) |
 | NHANES Medication | 200 | 1591 | 400 (25.1%) | 591 (37.1%) | 200 (12.6%) | 400 (25.1%) |
-| **All** | 600 | 29252 | 18496 (63.2%) | 4655 (15.9%) | 294 (1.0%) | 5807 (19.9%) |
+| **All** | 800 | 43087 | 27522 (63.9%) | 6721 (15.6%) | 344 (0.8%) | 8500 (19.7%) |
 
 What OMOP cannot hold here: the record's provenance and audit; the survey's design (weights, strata, primary sampling
 units, release, interview status), which describes the sample rather than the person; a blood pressure reading's body
