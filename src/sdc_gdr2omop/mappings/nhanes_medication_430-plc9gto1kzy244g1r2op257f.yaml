@@ -1,0 +1,48 @@
+# NHANES Medication 4.3.0 (FAIR Data Demo) to OMOP CDM 5.4
+# Written by tools/build_mapping.py from tools/specs/nhanes_medication_430.py; labels in the comments.
+mapping:
+  id: nhanes-medication-4.3.0-omop-5.4
+  version: 1
+  author: Axius SDC, Inc.
+  date: '2026-10-27'
+  description: The NHANES Medication 4.3.0 model's values as OMOP CDM 5.4 rows. The concepts are the model's own links and
+    code bindings, looked up in the user's vocabulary; NHANES's prevention reason codes are not ICD-10-CM and get no concept.
+model:
+  ct_id: plc9gto1kzy244g1r2op257f
+  schema_sha256: 4924ad890240ccd1c140e715ad66af587cf64bf365efbd33704a99a6e95d877a
+target:
+  name: OMOP CDM
+  version: '5.4'
+rules:
+  # NHANES Medication Governed Record
+  - {cluster: rzlq0w15v4jci151pg5bdxpi, to: .}
+  # NHANES Medication
+  - {cluster: pgn54ip279evo9nxul6bsw2d, to: .}
+  # Audit Event
+  - {cluster: t2tvd3wylxrstdeu5aw6gkw1, to: '-', transform: omit, reason: 'the record''s audit event: OMOP CDM has no table for it'}
+  # PROV Activity
+  - {cluster: vmikfu0irht9fmq7q02t3oqs, to: '-', transform: omit, reason: 'the record''s provenance: OMOP CDM has no table for it'}
+  # PROV Agent
+  - {cluster: c179ilk2ns15cd5rzzdfd6f6, to: '-', transform: omit, reason: 'the record''s provenance: OMOP CDM has no table for it'}
+  # Respondent Sequence Number (SEQN)
+  - {component: uto4zszvpicva38wx77knz5y, to: RECORD/person_id, transform: copy, also: [{to: RECORD/event_date, transform: constant, value: '2017-01-01'}]}
+  # every answer: an OBSERVATION row
+  - {sdc_type: XdToken, to: +OBSERVATION/value_as_concept_id, transform: copy}
+  # every count: an OBSERVATION row
+  - {sdc_type: XdCount, to: +OBSERVATION/value_as_number, transform: copy}
+  # Generic Drug Code (RXDDRGID)
+  - {component: wypildaam8rrd87zkkjxl732, to: DRUG_EXPOSURE/drug_source_value, transform: copy}
+  # Generic Drug Name (RXDDRUG)
+  - {component: aut5uvzn0y8wb9xj2ox2n4wh, to: '-', transform: omit, reason: DRUG_EXPOSURE has no column for a drug's name; the drug is its source code}
+  # Diagnosis Code (ICD-10-CM)
+  - {component: km7yfw4egxchlb92ya8cqurd, to: +CONDITION_OCCURRENCE/condition_source_value, transform: copy}
+  # Prevention Reason Code (NHANES) (within Prevention Reason (NHANES))
+  - {component: fkfgjboicxhcx4j0l7jhqw42, within: [fyurnfjn767pebwima5aq1ek], to: OBSERVATION/observation_source_value, transform: copy}
+  # Code Display Text (within Prevention Reason (NHANES))
+  - {component: eo5tlfr0576ypknys5alvcn0, within: [fyurnfjn767pebwima5aq1ek], to: OBSERVATION/value_as_string, transform: copy}
+  # Code Display Text
+  - {component: eo5tlfr0576ypknys5alvcn0, to: '-', transform: omit, reason: 'OMOP keeps no display text: a concept''s name is the vocabulary''s'}
+  # Code System: NHANES Prevention Reason (within Prevention Reason (NHANES))
+  - {component: m5mmhesnjwbf52fwdo8jzqxp, within: [fyurnfjn767pebwima5aq1ek], to: '-', transform: omit, reason: 'a code system OMOP''s vocabularies do not carry: the code has no concept'}
+  # Code System: ICD-10-CM
+  - {component: jwgx8nvbtsim7ck4uqmpqyl2, to: '-', transform: omit, reason: the code system is the vocabulary the condition's code is looked up in}

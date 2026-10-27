@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.0.5 (2026-10-27)
+
+- **FAIR Data Demo 4.3.0:** NHANES Participant 4.3.0 (`drjvqb171q9pqwcdq6nxxrr4`) and NHANES Medication 4.3.0
+  (`plc9gto1kzy244g1r2op257f`), their mappings and seeded samples of 200 records each (the participant sample is the
+  4.2.4 sample's participants; the medication sample includes every Exceptional Value the file has and prevention
+  codes). The earlier mappings stay, for records made on the retired models.
+- **NHANES's prevention reason codes are never ICD-10-CM.** NHANES Medication 4.3.0 carries `I21.P` (prevent heart
+  attack) and the rest as NHANES's own code system; each is an OBSERVATION row with no concept, the code as its
+  observation_source_value and NHANES's description as value_as_string, and never a CONDITION_OCCURRENCE.
+- **Exceptional Values in the records.** 4.3.0's refused and unknown answers are carried as their codes, never as
+  values. Fix: an Exceptional Value on a component the mapping leaves out (a drug's name, which OMOP has no column for)
+  was reported as not representable, and the record was refused as an incomplete mapping; it is lost now, and the
+  record maps (it would have refused all 134 medication records whose name is unknown, refused or not known).
+
 ## 4.0.4 (2026-10-26)
 
 - **NHANES Participant 4.2.4** (`tp5pg0u4dasqarie0b3ujn2u`): its mapping, a sample of 200 of its records (the 4.2.3

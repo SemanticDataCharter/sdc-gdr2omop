@@ -114,6 +114,11 @@ class OMOPMapper:
         for p in ordered:
             v = p.value
             if p.omitted:
+                if v.exceptional:               # an Exceptional Value has an EV outcome: where its value cannot go, it is lost
+                    self._exceptional_at.add(v.position)
+                    outcomes[v.position] = ValueOutcome(v.position, LOST, note=f"{v.exceptional.code}: the component is not "
+                                                        f"mapped ({p.omitted_by.reason or 'omitted'})")
+                    continue
                 outcomes[v.position] = ValueOutcome(v.position, NOT_REPRESENTABLE, note=p.omitted_by.reason or "")
                 continue
             if p.rule is None:

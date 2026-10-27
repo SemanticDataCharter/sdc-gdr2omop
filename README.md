@@ -5,16 +5,16 @@ Governed Data Records as rows of the OMOP Common Data Model 5.4. A target mapper
 against its model and reports each one; this package says which OMOP table and column each value goes to, takes each
 row's concept from the model, and writes one CSV per table. Outbound only. Apache 2.0.
 
-**Status:** 4.0.4. Models so far, from the [FAIR Data Demo](https://github.com/SemanticDataCharter/FAIR_Data_Demo):
-**NHANES Participant 4.2.4** (`tp5pg0u4dasqarie0b3ujn2u`), **NHANES Participant 4.2.3** (retired,
-`eehpfapwgvxtzdrofgstdcfs`), **NHANES Participant** (4.2.0, retired, `xy8upneajsb8vdcmnve01g6g`) and **NHANES
-Medication** (`epbdfmvxc3gbh5f66hhb3o2m`). NHANES Participant 4.2.3 composes the NIH CDE library's corrected "Are you
-pregnant now?" (NIH's record bound each answer to the next value's LOINC code: the FAIR Data Demo's `SOURCE-ERRATA.md`,
-E-2026-10-01); 4.2.4 binds its values to codes their terminologies confirm, where 4.2.3 bound every level of the
-difficulty scale to Unknown and some answers to unrelated concepts (E-2026-10-03). A value no concept says exactly is
-defined by the agency's codebook, which is not a code: its row has value_as_concept_id 0 and the answer as
-value_source_value. The earlier mappings stay: records made on the retired models still exist, and each mapping
-writes the codes its model binds.
+**Status:** 4.0.5. Models so far, from the [FAIR Data Demo](https://github.com/SemanticDataCharter/FAIR_Data_Demo):
+**NHANES Participant 4.3.0** (`drjvqb171q9pqwcdq6nxxrr4`) and **NHANES Medication 4.3.0** (`plc9gto1kzy244g1r2op257f`),
+and the retired models whose records still exist: NHANES Participant 4.2.4 (`tp5pg0u4dasqarie0b3ujn2u`), 4.2.3
+(`eehpfapwgvxtzdrofgstdcfs`) and 4.2.0 (`xy8upneajsb8vdcmnve01g6g`), and NHANES Medication 4.2.0
+(`epbdfmvxc3gbh5f66hhb3o2m`). 4.3.0 carries a refused or unknown answer as an Exceptional Value in place of the answer,
+and NHANES's prevention reason codes (`I21.P`, prevent heart attack) as a code system of their own, not ICD-10-CM (the
+FAIR Data Demo's `SOURCE-ERRATA.md`). NHANES Participant 4.2.3 composes the NIH CDE library's corrected "Are you
+pregnant now?" (E-2026-10-01); 4.2.4 binds its values to codes their terminologies confirm (E-2026-10-03). A value no
+concept says exactly is defined by the agency's codebook, which is not a code: its row has value_as_concept_id 0 and
+the answer as value_source_value. Each mapping writes the codes its model binds.
 
 ## Use
 
@@ -23,7 +23,7 @@ from sdc_mapper import Engine, load_mapping
 from sdc_gdr2omop import OMOPMapper, mapping_path
 
 mapper = OMOPMapper("/path/to/athena")         # or SDC_OMOP_VOCABULARY; without one, every concept_id is 0
-result = Engine().map_record(xml, mapper, load_mapping(mapping_path("tp5pg0u4dasqarie0b3ujn2u")))
+result = Engine().map_record(xml, mapper, load_mapping(mapping_path("drjvqb171q9pqwcdq6nxxrr4")))
 result.files            # {"person.csv": ..., "measurement.csv": ..., ...}, the DDL's columns in order
 result.report           # every value: lookup, declared, carried or not representable, and why
 ```
@@ -92,8 +92,10 @@ Every value of every record, the record's provenance and audit included:
 | NHANES Participant | 200 | 19226 | 9045 (47.0%) | 2023 (10.5%) | 44 (0.2%) | 8114 (42.2%) |
 | NHANES Participant 4.2.3 | 200 | 19235 | 9051 (47.1%) | 2041 (10.6%) | 50 (0.3%) | 8093 (42.1%) |
 | NHANES Participant 4.2.4 | 200 | 19235 | 9026 (46.9%) | 2066 (10.7%) | 50 (0.3%) | 8093 (42.1%) |
+| NHANES Participant 4.3.0 | 200 | 19247 | 9026 (46.9%) | 2066 (10.7%) | 62 (0.3%) | 8093 (42.0%) |
 | NHANES Medication | 200 | 6991 | 400 (5.7%) | 591 (8.5%) | 200 (2.9%) | 5800 (83.0%) |
-| **All** | 800 | 64687 | 27522 (42.5%) | 6721 (10.4%) | 344 (0.5%) | 30100 (46.5%) |
+| NHANES Medication 4.3.0 | 200 | 7005 | 394 (5.6%) | 601 (8.6%) | 220 (3.1%) | 5790 (82.7%) |
+| **All** | 1200 | 90939 | 36942 (40.6%) | 9388 (10.3%) | 626 (0.7%) | 43983 (48.4%) |
 
 The record's data alone (provenance and audit left out):
 
@@ -102,8 +104,10 @@ The record's data alone (provenance and audit left out):
 | NHANES Participant | 200 | 13826 | 9045 (65.4%) | 2023 (14.6%) | 44 (0.3%) | 2714 (19.6%) |
 | NHANES Participant 4.2.3 | 200 | 13835 | 9051 (65.4%) | 2041 (14.8%) | 50 (0.4%) | 2693 (19.5%) |
 | NHANES Participant 4.2.4 | 200 | 13835 | 9026 (65.2%) | 2066 (14.9%) | 50 (0.4%) | 2693 (19.5%) |
+| NHANES Participant 4.3.0 | 200 | 13847 | 9026 (65.2%) | 2066 (14.9%) | 62 (0.4%) | 2693 (19.4%) |
 | NHANES Medication | 200 | 1591 | 400 (25.1%) | 591 (37.1%) | 200 (12.6%) | 400 (25.1%) |
-| **All** | 800 | 43087 | 27522 (63.9%) | 6721 (15.6%) | 344 (0.8%) | 8500 (19.7%) |
+| NHANES Medication 4.3.0 | 200 | 1605 | 394 (24.5%) | 601 (37.4%) | 220 (13.7%) | 390 (24.3%) |
+| **All** | 1200 | 58539 | 36942 (63.1%) | 9388 (16.0%) | 626 (1.1%) | 11583 (19.8%) |
 
 What OMOP cannot hold here: the record's provenance and audit; the survey's design (weights, strata, primary sampling
 units, release, interview status), which describes the sample rather than the person; a blood pressure reading's body
@@ -125,8 +129,21 @@ value for it`). A mapping file may declare a code lost; it cannot declare one pr
 The two NHANES Participant samples are separate seeded draws of 200 participants, so their counts differ by who was
 drawn; the mappings place every value the same way.
 
-The sample records hold no Exceptional Values: the FAIR Data Demo's generators leave NHANES refusals and don't-knows
-out of the records and count them. The tests put them in.
+The 4.3.0 samples hold Exceptional Values: a participant's refused or don't-know answer is ASKR or ASKU, and a drug name,
+days taken or reason that NHANES records as unknown, refused or not known is UNK, ASKR or ASKU. Each is carried as its
+code (an answer's value_source_value is `ASKR`, never a value), and an unknown reason's CONDITION_OCCURRENCE row has
+concept 0 and `ASKU` as its condition_source_value. A component the mapping does not map (a drug's name) has nowhere
+to carry its Exceptional Value, so it is **lost**, and the record still maps. The earlier samples hold none: the FAIR
+Data Demo left refusals out before 4.3.0.
+
+## NHANES's prevention reason codes
+
+NHANES writes a reason a medicine is taken to prevent a condition as the condition's ICD-10-CM code with "P" appended
+(`I21.P`, prevent heart attack). No such code is in ICD-10-CM, and the condition is one the participant is preventing,
+not one diagnosed. NHANES Medication 4.3.0 carries these as their own coded value, and this mapper writes each as an
+OBSERVATION row with no concept (observation_concept_id 0): the NHANES code is its observation_source_value and
+NHANES's description its value_as_string. It is never a CONDITION_OCCURRENCE and never looked up as ICD-10-CM, even
+in a vocabulary that has a concept with that code (a test makes sure).
 
 ## Tests
 
