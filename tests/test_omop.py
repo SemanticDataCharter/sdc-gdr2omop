@@ -22,8 +22,9 @@ SDC4 = "https://semanticdatacharter.com/ns/sdc4/"
 #: (E-2026-10-01); and 4.2.4, whose value bindings name codes their terminologies confirm (E-2026-10-03). Every mapping
 #: stays published: records made on the retired models still exist.
 PARTICIPANTS = [("nhanes-participant", "xy8upneajsb8vdcmnve01g6g"), ("nhanes-participant-423", "eehpfapwgvxtzdrofgstdcfs"),
-                ("nhanes-participant-424", "tp5pg0u4dasqarie0b3ujn2u")]
+                ("nhanes-participant-424", "tp5pg0u4dasqarie0b3ujn2u"), ("nhanes-participant-430", "drjvqb171q9pqwcdq6nxxrr4")]
 MEDICATION = ("nhanes-medication", "epbdfmvxc3gbh5f66hhb3o2m")
+MEDICATION_430 = ("nhanes-medication-430", "plc9gto1kzy244g1r2op257f")
 
 
 @pytest.fixture(scope="module")
@@ -31,7 +32,7 @@ def engine(tmp_path_factory):
     return Engine(schema_dir=tmp_path_factory.mktemp("schemas"))
 
 
-@pytest.fixture(params=PARTICIPANTS, ids=["4.2.0", "4.2.3", "4.2.4"])
+@pytest.fixture(params=PARTICIPANTS, ids=["4.2.0", "4.2.3", "4.2.4", "4.3.0"])
 def participant(request):
     return request.param
 
@@ -257,3 +258,76 @@ def test_a_value_defined_by_a_codebook_page_has_no_concept(engine):
             text = data.decode()
             assert not any(x in text for x in ("DEMO_J.htm", "PFQ_J.htm", "DMDCITZN", "DMDEDUC2")), f.name
 
+
+
+def _with(doc, pattern: bytes):
+    return [x for x in (f.read_bytes() for f in records(doc)) if pattern in x]
+
+
+def test_every_medication_430_record_maps_and_loads(engine):
+    """4.3.0: a medicine whose name is unknown, refused or not known is a record, with an Exceptional Value; it still
+    maps (the name has no OMOP column, so its Exceptional Value is lost, not an error)."""
+    con = duckdb.connect(":memory:")
+    for s in ddl_statements():
+        con.execute(s)
+    mapper = OMOPMapper()
+    for f in records(MEDICATION_430):
+        r = run(engine, MEDICATION_430, f.read_bytes(), mapper)
+        assert r.outcome == VALID, (f.name, r.errors)
+        load(r.files, con)
+    assert con.execute("select count(*) from drug_exposure").fetchone()[0] > 0
+
+
+def test_an_nhanes_prevention_code_is_never_icd10cm(engine):
+    """FAIR 4.3.0: I21.P (prevent heart attack) is NHANES's code, not ICD-10-CM. It is an OBSERVATION with no concept,
+    the code and NHANES's description as its source value and text, and never a condition. Even a vocabulary with an
+    ICD10CM concept coded I21.P does not give it one: the code is never looked up as ICD-10-CM."""
+    xs = _with(MEDICATION_430, b"Prevention Reason Code (NHANES)")
+    assert xs, "the sample has prevention codes"
+    for xml in xs:
+        r = run(engine, MEDICATION_430, xml, OMOPMapper(VOCAB))
+        assert r.outcome == VALID, r.errors
+        codes = [c.decode() for c in __import__("re").findall(rb"Prevention Reason Code \(NHANES\)</label>\s*<xdstring-value>([^<]+)", xml)]
+        obs = {o["observation_source_value"]: o for o in rows(r, "observation")}
+        for code in codes:
+            o = obs[code]
+            assert o["observation_concept_id"] == "0" and o["value_as_string"].lower().startswith("prevent")
+            assert not o.get("observation_source_concept_id") or o["observation_source_concept_id"] == "0"
+        assert not {c["condition_source_value"] for c in rows(r, "condition_occurrence")} & set(codes)
+
+
+def test_an_exceptional_value_on_an_omitted_component_is_lost_not_an_error(engine):
+    """The drug's name has no OMOP column; an unknown name (UNK) is an Exceptional Value with nowhere to go: lost."""
+    xml = next(x for x in records(MEDICATION_430) for x in [x.read_bytes()]
+               if __import__("re").search(rb"Generic Drug Name \(RXDDRUG\)</label>\s*<sdc4:UNK>", x))
+    r = run(engine, MEDICATION_430, xml)
+    assert r.outcome == VALID, r.errors
+    assert [(e["class"]) for e in r.report.exceptional] == [LOST]
+
+
+def test_a_refused_answer_is_carried_as_its_code_never_as_a_value(engine):
+    """FAIR 4.3.0: a refused answer is ASKR in place of the answer: its row's value source is ASKR, and it has no value."""
+    doc = ("nhanes-participant-430", "drjvqb171q9pqwcdq6nxxrr4")
+    xml = next(x for x in (f.read_bytes() for f in records(doc)) if b"<sdc4:ASKR>" in x)
+    r = run(engine, doc, xml, OMOPMapper(VOCAB))
+    assert r.outcome == VALID, r.errors
+    askr = [o for o in rows(r, "observation") if o.get("value_source_value") == "ASKR"]
+    assert askr and all(o["value_as_concept_id"] in ("", "0") and not o.get("value_as_number") for o in askr)
+    assert EV_CARRIED in {e["class"] for e in r.report.exceptional}
+
+
+def test_an_unknown_reason_is_not_a_condition(engine):
+    """FAIR 4.3.0: SEQN 96375's medication reason is ASKU in place of its ICD-10-CM code. An unknown reason is not a
+    condition: no CONDITION_OCCURRENCE row (one with concept 0 and source ASKU would be counted as a recorded
+    condition); the Exceptional Value is lost, and the report says why."""
+    import re
+    xml = next(x for x in (f.read_bytes() for f in records(MEDICATION_430))
+               if b"SEQN=96375;" in x and re.search(rb"Diagnosis Code \(ICD-10-CM\)</label>\s*<sdc4:ASKU>", x))
+    r = run(engine, MEDICATION_430, xml)
+    assert r.outcome == VALID, r.errors
+    assert rows(r, "condition_occurrence") == []
+    lost = [e for e in r.report.exceptional if e["class"] == LOST]
+    assert [e["code"] for e in lost] == ["ASKU"]
+    why = next(v for v in r.report.values if v["position"] == lost[0]["position"])
+    assert "no condition to record" in why.get("note", "")
+    assert not any("ASKU" in o.values() for t in ("observation", "measurement", "drug_exposure") for o in rows(r, t))

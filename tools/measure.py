@@ -18,7 +18,9 @@ ROOT = Path(__file__).resolve().parents[1]
 MODELS = [("NHANES Participant", "nhanes-participant", "xy8upneajsb8vdcmnve01g6g"),
           ("NHANES Participant 4.2.3", "nhanes-participant-423", "eehpfapwgvxtzdrofgstdcfs"),
           ("NHANES Participant 4.2.4", "nhanes-participant-424", "tp5pg0u4dasqarie0b3ujn2u"),
-          ("NHANES Medication", "nhanes-medication", "epbdfmvxc3gbh5f66hhb3o2m")]
+          ("NHANES Participant 4.3.0", "nhanes-participant-430", "drjvqb171q9pqwcdq6nxxrr4"),
+          ("NHANES Medication", "nhanes-medication", "epbdfmvxc3gbh5f66hhb3o2m"),
+          ("NHANES Medication 4.3.0", "nhanes-medication-430", "plc9gto1kzy244g1r2op257f")]
 RECORD_CLUSTERS = {"Audit Event", "PROV Activity", "PROV Agent", "PROV Entity"}
 
 

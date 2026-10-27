@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sdc-gdr2omop"
-version = "4.0.4"
+version = "4.0.5"
 description = "Governed Data Records as OMOP CDM 5.4 rows, through sdc-mapper: concepts from the model, every value reported, rows checked against the OHDSI DDL."
 readme = "README.md"
 requires-python = ">=3.12"
