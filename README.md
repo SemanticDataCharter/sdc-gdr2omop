@@ -94,8 +94,8 @@ Every value of every record, the record's provenance and audit included:
 | NHANES Participant 4.2.4 | 200 | 19235 | 9026 (46.9%) | 2066 (10.7%) | 50 (0.3%) | 8093 (42.1%) |
 | NHANES Participant 4.3.0 | 200 | 19247 | 9026 (46.9%) | 2066 (10.7%) | 62 (0.3%) | 8093 (42.0%) |
 | NHANES Medication | 200 | 6991 | 400 (5.7%) | 591 (8.5%) | 200 (2.9%) | 5800 (83.0%) |
-| NHANES Medication 4.3.0 | 200 | 7005 | 394 (5.6%) | 601 (8.6%) | 220 (3.1%) | 5790 (82.7%) |
-| **All** | 1200 | 90939 | 36942 (40.6%) | 9388 (10.3%) | 626 (0.7%) | 43983 (48.4%) |
+| NHANES Medication 4.3.0 | 200 | 6997 | 394 (5.6%) | 601 (8.6%) | 212 (3.0%) | 5790 (82.7%) |
+| **All** | 1200 | 90931 | 36942 (40.6%) | 9388 (10.3%) | 618 (0.7%) | 43983 (48.4%) |
 
 The record's data alone (provenance and audit left out):
 
@@ -106,8 +106,8 @@ The record's data alone (provenance and audit left out):
 | NHANES Participant 4.2.4 | 200 | 13835 | 9026 (65.2%) | 2066 (14.9%) | 50 (0.4%) | 2693 (19.5%) |
 | NHANES Participant 4.3.0 | 200 | 13847 | 9026 (65.2%) | 2066 (14.9%) | 62 (0.4%) | 2693 (19.4%) |
 | NHANES Medication | 200 | 1591 | 400 (25.1%) | 591 (37.1%) | 200 (12.6%) | 400 (25.1%) |
-| NHANES Medication 4.3.0 | 200 | 1605 | 394 (24.5%) | 601 (37.4%) | 220 (13.7%) | 390 (24.3%) |
-| **All** | 1200 | 58539 | 36942 (63.1%) | 9388 (16.0%) | 626 (1.1%) | 11583 (19.8%) |
+| NHANES Medication 4.3.0 | 200 | 1597 | 394 (24.7%) | 601 (37.6%) | 212 (13.3%) | 390 (24.4%) |
+| **All** | 1200 | 58531 | 36942 (63.1%) | 9388 (16.0%) | 618 (1.1%) | 11583 (19.8%) |
 
 What OMOP cannot hold here: the record's provenance and audit; the survey's design (weights, strata, primary sampling
 units, release, interview status), which describes the sample rather than the person; a blood pressure reading's body
@@ -130,10 +130,13 @@ The two NHANES Participant samples are separate seeded draws of 200 participants
 drawn; the mappings place every value the same way.
 
 The 4.3.0 samples hold Exceptional Values: a participant's refused or don't-know answer is ASKR or ASKU, and a drug name,
-days taken or reason that NHANES records as unknown, refused or not known is UNK, ASKR or ASKU. Each is carried as its
-code (an answer's value_source_value is `ASKR`, never a value), and an unknown reason's CONDITION_OCCURRENCE row has
-concept 0 and `ASKU` as its condition_source_value. A component the mapping does not map (a drug's name) has nowhere
-to carry its Exceptional Value, so it is **lost**, and the record still maps. The earlier samples hold none: the FAIR
+days taken or reason that NHANES records as unknown, refused or not known is UNK, ASKR or ASKU. An answer's is carried
+as its code (its value_source_value is `ASKR`, never a value). Where the Exceptional Value stands in place of the code
+that makes a row a clinical fact (a medication reason's ICD-10-CM code: CONDITION_OCCURRENCE; likewise a drug,
+procedure or measurement code), there is no fact to record: no row is written, and the Exceptional Value is **lost**,
+with the reason in the report ("OMOP has no condition to record for a code that is ASKU"). A row with concept 0 and
+`ASKU` as its source value would be counted as a recorded condition. A component the mapping does not map (a drug's
+name) has nowhere to carry its Exceptional Value either, so it is lost, and the record still maps. The earlier samples hold none: the FAIR
 Data Demo left refusals out before 4.3.0.
 
 ## NHANES's prevention reason codes

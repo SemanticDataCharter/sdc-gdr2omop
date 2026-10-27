@@ -314,3 +314,20 @@ def test_a_refused_answer_is_carried_as_its_code_never_as_a_value(engine):
     askr = [o for o in rows(r, "observation") if o.get("value_source_value") == "ASKR"]
     assert askr and all(o["value_as_concept_id"] in ("", "0") and not o.get("value_as_number") for o in askr)
     assert EV_CARRIED in {e["class"] for e in r.report.exceptional}
+
+
+def test_an_unknown_reason_is_not_a_condition(engine):
+    """FAIR 4.3.0: SEQN 96375's medication reason is ASKU in place of its ICD-10-CM code. An unknown reason is not a
+    condition: no CONDITION_OCCURRENCE row (one with concept 0 and source ASKU would be counted as a recorded
+    condition); the Exceptional Value is lost, and the report says why."""
+    import re
+    xml = next(x for x in (f.read_bytes() for f in records(MEDICATION_430))
+               if b"SEQN=96375;" in x and re.search(rb"Diagnosis Code \(ICD-10-CM\)</label>\s*<sdc4:ASKU>", x))
+    r = run(engine, MEDICATION_430, xml)
+    assert r.outcome == VALID, r.errors
+    assert rows(r, "condition_occurrence") == []
+    lost = [e for e in r.report.exceptional if e["class"] == LOST]
+    assert [e["code"] for e in lost] == ["ASKU"]
+    why = next(v for v in r.report.values if v["position"] == lost[0]["position"])
+    assert "no condition to record" in why.get("note", "")
+    assert not any("ASKU" in o.values() for t in ("observation", "measurement", "drug_exposure") for o in rows(r, t))

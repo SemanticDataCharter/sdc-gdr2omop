@@ -57,6 +57,10 @@ EVENTS = {
                            "drug_source_value", "drug_source_concept_id", end_date="drug_exposure_end_date"),
 }
 RECORD_COLUMNS = {"person_id", "event_date"}
+#: The tables whose row is a clinical fact, identified by its code. An Exceptional Value in place of that code (a reason
+#: that is unknown, refused or not known) is not a fact: OMOP has no row to record it in, so it writes none.
+FACTS = {"condition_occurrence": "condition", "drug_exposure": "drug exposure", "procedure_occurrence": "procedure",
+         "measurement": "measurement"}
 
 
 def _own(key) -> bool:
@@ -243,6 +247,12 @@ class OMOPMapper:
     def _exceptional(self, p, table, key, column) -> ValueOutcome:
         v = p.value
         rule = self._evs[v.exceptional.code]
+        event = EVENTS.get(table)
+        if table in FACTS and event and column in (event.source, event.concept):
+            # the value is the code that makes the row a fact: no code, no fact; a row with concept 0 and the null
+            # flavor as its source value would be counted as a recorded one
+            return ValueOutcome(v.position, LOST, note=f"OMOP has no {FACTS[table]} to record for a code that is "
+                                                       f"{v.exceptional.code}: no {table.upper()} row is written")
         source = None if table == "record" else _source_column(table, column)
         if rule.cls == LOST or source is None:
             return ValueOutcome(v.position, LOST, note=f"OMOP {table.upper()}.{column} has no source column for "

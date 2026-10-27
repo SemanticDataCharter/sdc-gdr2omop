@@ -13,6 +13,10 @@
   values. Fix: an Exceptional Value on a component the mapping leaves out (a drug's name, which OMOP has no column for)
   was reported as not representable, and the record was refused as an incomplete mapping; it is lost now, and the
   record maps (it would have refused all 134 medication records whose name is unknown, refused or not known).
+- **An unknown reason is not a condition.** An Exceptional Value in place of the code that makes a row a clinical fact
+  (a medication reason's ICD-10-CM code, and likewise a drug, procedure or measurement code) writes no row: it is lost,
+  with the reason in the report. Before this, an unknown reason became a CONDITION_OCCURRENCE with concept 0 and
+  `ASKU` as its source value, which a count of conditions would include.
 
 ## 4.0.4 (2026-10-26)
 
