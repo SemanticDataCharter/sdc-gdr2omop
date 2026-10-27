@@ -22,7 +22,8 @@ SDC4 = "https://semanticdatacharter.com/ns/sdc4/"
 #: (E-2026-10-01); and 4.2.4, whose value bindings name codes their terminologies confirm (E-2026-10-03). Every mapping
 #: stays published: records made on the retired models still exist.
 PARTICIPANTS = [("nhanes-participant", "xy8upneajsb8vdcmnve01g6g"), ("nhanes-participant-423", "eehpfapwgvxtzdrofgstdcfs"),
-                ("nhanes-participant-424", "tp5pg0u4dasqarie0b3ujn2u"), ("nhanes-participant-430", "drjvqb171q9pqwcdq6nxxrr4")]
+                ("nhanes-participant-424", "tp5pg0u4dasqarie0b3ujn2u"), ("nhanes-participant-430", "drjvqb171q9pqwcdq6nxxrr4"),
+                ("nhanes-participant-431", "fafj69kdii37997sy7dpsz13")]
 MEDICATION = ("nhanes-medication", "epbdfmvxc3gbh5f66hhb3o2m")
 MEDICATION_430 = ("nhanes-medication-430", "plc9gto1kzy244g1r2op257f")
 
@@ -32,7 +33,7 @@ def engine(tmp_path_factory):
     return Engine(schema_dir=tmp_path_factory.mktemp("schemas"))
 
 
-@pytest.fixture(params=PARTICIPANTS, ids=["4.2.0", "4.2.3", "4.2.4", "4.3.0"])
+@pytest.fixture(params=PARTICIPANTS, ids=["4.2.0", "4.2.3", "4.2.4", "4.3.0", "4.3.1"])
 def participant(request):
     return request.param
 
@@ -331,3 +332,22 @@ def test_an_unknown_reason_is_not_a_condition(engine):
     why = next(v for v in r.report.values if v["position"] == lost[0]["position"])
     assert "no condition to record" in why.get("note", "")
     assert not any("ASKU" in o.values() for t in ("observation", "measurement", "drug_exposure") for o in rows(r, t))
+
+
+
+def test_a_part_of_a_compound_concept_is_not_the_elements_concept(engine):
+    """4.3.1's NIH CDE answers carry their compound concept as several dcterms:subject parts (NIH CDE R-2026-10-27);
+    "Are you pregnant now?" is Person + Current + Pregnancy + ... . No part is the observation's concept: with a
+    vocabulary that has NCIt Person, the 4.3.1 row's concept stays 0. The 4.3.0 model claimed Person as an exact match,
+    and the row follows that claim; 4.3.1 is the revision that withdraws it."""
+    def pregnancy_rows(doc, ct):
+        for f in records(doc):
+            r = run(engine, doc, f.read_bytes(), OMOPMapper(VOCAB))
+            got = [x for x in rows(r, "observation") if x["observation_source_value"] == ct]
+            if got:
+                return got
+        raise AssertionError("no participant in the sample answers the question")
+    new = pregnancy_rows(("nhanes-participant-431", "fafj69kdii37997sy7dpsz13"), "z3dy86uraka0bmuuvfdzf0ev")
+    assert all(x["observation_concept_id"] == "0" and x["observation_source_concept_id"] in ("", "0") for x in new)
+    old = pregnancy_rows(("nhanes-participant-430", "drjvqb171q9pqwcdq6nxxrr4"), "ukvlpa3hvurit0wuzkkgh7nx")
+    assert all(x["observation_source_concept_id"] == "2000000033" for x in old)   # the 4.3.0 model's exact-match claim

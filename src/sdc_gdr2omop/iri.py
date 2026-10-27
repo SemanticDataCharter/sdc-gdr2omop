@@ -36,12 +36,17 @@ def vocabulary_code(iri: str | None) -> tuple[str, str] | None:
 
 
 def concept_of(links: dict[str, list[str]]) -> tuple[str, str] | None:
-    """The concept a component measures or asks: its exact match, else its subject."""
+    """The concept a component measures or asks: its exact match, else its subject when it has exactly one. Several
+    subjects are the parts of a compound concept (NIH's "Are you pregnant now?" is Person + Current + Pregnancy): no
+    part alone is the element, so none is its concept (4.0.6)."""
     for predicate in CONCEPT_LINKS:
-        for iri in links.get(predicate, []):
-            found = vocabulary_code(iri)
-            if found:
-                return found
+        found = [c for c in (vocabulary_code(iri) for iri in links.get(predicate, [])) if c]
+        if predicate == EXACT and found:
+            return found[0]
+        if predicate != EXACT and len(found) == 1:
+            return found[0]
+        if predicate != EXACT and len(found) > 1:
+            return None
     return None
 
 

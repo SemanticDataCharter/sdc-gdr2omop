@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.0.6 (2026-10-27)
+
+- **FAIR Data Demo 4.3.1:** NHANES Participant 4.3.1 (`fafj69kdii37997sy7dpsz13`): its mapping and a sample of the
+  same 200 participants as the 4.3.0 sample. 4.3.1's four NIH CDE answers (race and ethnicity, pregnancy, education,
+  health insurance) carry their compound concept as `dcterms:subject` parts, with no exact-match claim (NIH CDE library
+  R-2026-10-27). The 4.3.0 mapping stays, for records made on that model.
+- **Fix: a part of a compound concept is not the observation's concept.** A row's concept was the component's exact
+  match, else its first subject. For a compound concept that is a part ("Are you pregnant now?" is Person + Current +
+  Indicator + Pregnancy), so with a vocabulary that carries NCIt the pregnancy observation took NCIt Person as its
+  concept. A subject is now the concept only when the component has exactly one; several are the parts of a compound,
+  and the row's concept stays 0. (Under 4.3.0 the same code came from the model's exact-match claim, which the mapper
+  follows; 4.3.1 is the revision that withdraws it.)
+
 ## 4.0.5 (2026-10-27)
 
 - **FAIR Data Demo 4.3.0:** NHANES Participant 4.3.0 (`drjvqb171q9pqwcdq6nxxrr4`) and NHANES Medication 4.3.0

@@ -31,3 +31,4 @@ concept_id	concept_name	domain_id	vocabulary_id	concept_class_id	standard_concep
 2000000030	MADE UP: College Completion	Observation	NCIt	Qualifier Value	S	C159746	19700101	20991231	
 2000000031	MADE UP: Active Funded Research Project	Observation	NCIt	Qualifier Value	S	C39303	19700101	20991231	
 2000000032	MADE UP: a concept with the code I21.P, which ICD-10-CM does not have	Condition	ICD10CM	4-char billing code		I21.P	19700101	20991231	
+2000000033	MADE UP: Person	Observation	NCIt	Qualifier Value	S	C25190	19700101	20991231	
